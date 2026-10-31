@@ -1,0 +1,44 @@
+---
+id: tramit-ia
+slug: tramit-ia
+title: TramitIA
+tagline: Orientación de trámites de Santa Cruz de la Sierra
+summary: Piloto público que responde con fichas publicadas. Si un trámite no está en el catálogo, lo dice y busca en internet. No es un sitio de la Alcaldía.
+problem: La información de trámites del municipio y sus subalcaldías no está reunida en una orientación que la persona pueda consultar.
+whyItMatters: Es un piloto público independiente, desplegado en AWS, para orientarse sin tratar el sitio como si fuera la Alcaldía.
+solution: Una web que responde con las fichas publicadas del catálogo.
+approach: Si el trámite no está en el catálogo, el sistema lo dice y busca en internet. La comprobación presencial sigue en el trabajo editorial.
+engineeringDecisions:
+  - El stack documentado es Next.js y TypeScript, Python y FastAPI, LangGraph, PostgreSQL y pgvector.
+  - Las fichas publicadas son el dato que se responde.
+benefits:
+  - Orienta sobre trámites del municipio de Santa Cruz de la Sierra y sus subalcaldías.
+  - Distingue el piloto de un sitio oficial de la Alcaldía.
+categories:
+  - ai
+technologies:
+  - Next.js
+  - TypeScript
+  - Python
+  - FastAPI
+  - LangGraph
+  - PostgreSQL
+  - pgvector
+featured: true
+order: 1
+liveUrl: "https://tramitia-bolivia.mywire.org"
+status: published
+maturity: demo
+---
+
+## Problema
+
+La información de trámites del municipio y sus subalcaldías no está reunida en una orientación que la persona pueda consultar.
+
+## Solución
+
+Una web que responde con las fichas publicadas del catálogo.
+
+## Enfoque
+
+Si el trámite no está en el catálogo, el sistema lo dice y busca en internet. La comprobación presencial sigue en el trabajo editorial.

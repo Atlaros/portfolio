@@ -1,0 +1,44 @@
+---
+id: tramit-ia
+slug: tramit-ia
+title: TramitIA
+tagline: Guidance on procedures in Santa Cruz de la Sierra
+summary: A public pilot that answers with published fact sheets. If a procedure is not in the catalog, it says so and searches the internet. It is not a City Hall site.
+problem: Information on procedures of the municipality and its sub-municipalities is not gathered into guidance a person can consult.
+whyItMatters: It is an independent public pilot, deployed on AWS, for getting oriented without treating the site as if it were City Hall.
+solution: A website that answers with the catalog's published fact sheets.
+approach: If the procedure is not in the catalog, the system says so and searches the internet. In-person verification remains in the editorial work.
+engineeringDecisions:
+  - The documented stack is Next.js and TypeScript, Python and FastAPI, LangGraph, PostgreSQL and pgvector.
+  - The published fact sheets are the data that is answered.
+benefits:
+  - Guides people on procedures of the municipality of Santa Cruz de la Sierra and its sub-municipalities.
+  - Distinguishes the pilot from an official City Hall site.
+categories:
+  - ai
+technologies:
+  - Next.js
+  - TypeScript
+  - Python
+  - FastAPI
+  - LangGraph
+  - PostgreSQL
+  - pgvector
+featured: true
+order: 1
+liveUrl: "https://tramitia-bolivia.mywire.org"
+status: published
+maturity: demo
+---
+
+## Problem
+
+Information on procedures of the municipality and its sub-municipalities is not gathered into guidance a person can consult.
+
+## Solution
+
+A website that answers with the catalog's published fact sheets.
+
+## Approach
+
+If the procedure is not in the catalog, the system says so and searches the internet. In-person verification remains in the editorial work.
