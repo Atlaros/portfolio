@@ -141,4 +141,11 @@ ADR-011 is accepted (`es`, `en`, `pt`, default `es`). The implementation plan sa
 
 ## Next step
 
-`TASK-008` remaining: about, experience, and contact. Profile still needs a photo and real roles. The LLM provider in ADR-006 is still unchosen.
+`TASK-027` is the next product increment. `TASK-008` remaining (about, experience, and contact) still needs a photo and real roles. The LLM provider in ADR-006 is still unchosen.
+
+- [ ] `TASK-027` Dark Engineering Premium, milestone 0 imported. Route: direct. UI not started.
+  - The user added `cursor-dark-engineering-premium-kit` and asked to put it in the repo. Canonical copies live in `docs/design/` and `.cursor/skills/portfolio-interactivo/SKILL.md`. `docs/03-DESIGN-SYSTEM.md`, AGENTS.md, and existing ADRs were not replaced.
+  - The installed skill keeps the role `AI & Agentic Systems Engineer`.
+  - Approved direction: white H1, cyan accent, blue depth, no rainbow headline. Product stage replaces the hero tab list. Featured projects stop sharing one card shape. Approach becomes Ingeniería en acción later, without duplicating the hero.
+  - Gate before any production UI edit: an isolated hero prototype, then a visual check. Do not copy figures from `docs/design/reference/hero-dark-engineering-premium.png`.
+  - Missing assets: real screenshots for TramitIA, AcademIA, and Partner Intelligence. `public/projects/` has no captures.
