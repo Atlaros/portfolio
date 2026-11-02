@@ -173,9 +173,21 @@ ADR-011 is accepted (`es`, `en`, `pt`, default `es`). The implementation plan sa
   - ADR-015; debt inventory `docs/design/review/iteration-c/debt-inventory.md`.
   - Verification: `npm run lint`, `npm run typecheck`, `npm test`, `npm run build` (record results in session handoff).
 
+- [x] `TASK-035` Phase C2 — editorial capabilities matrix replaces the vertical tablist. Route: inline. Hero and showcases untouched. No commit.
+  - All four capabilities visible at once; no 01–04, tabs, or hidden panels.
+  - Evidence links only for published MDX cases; ML stays sober without Phase D / pending UI copy.
+  - RSC only; deleted `CapabilitiesExplorer.tsx`. `pending-evidence.ts` kept for Phase D prep, not rendered publicly.
+  - Verification: lint, typecheck, 50 tests, build OK. Captures in `docs/design/review/iteration-c2/`.
+
+- [x] `TASK-036` Phase C2 refine — compact editorial capabilities after review rejection. Route: inline. Hero and showcases untouched. No commit.
+  - Four equal-density rows; name links only; no auto tech aggregation; truthful lead; natural ES/EN/PT.
+  - Section height ~1186→835 px at 1440 (~30%); 390 ~1903→1055.
+  - Captures: `docs/design/review/iteration-c2/before|after/`.
+  - Checks: lint, typecheck, 50 tests, build OK. No commit.
+
 ## Next step
 
-Phase G debt cleanup (archive Approach, rename `#approach` hash). Then about/experience/contact. About, experience, and contact still open (`TASK-008`). The LLM provider in ADR-006 is still unchosen.
+Phase G debt cleanup (archive Approach, rename `#approach` hash) or Phase D when authorized. About/experience/contact still open (`TASK-008`).
 
 - [x] `TASK-028` Align the visual rules with Dark Engineering Premium. Route: direct.
   - The user asked to resolve the clash because the kit is a redesign. ADR-014 accepts the new palette and a solid white headline. ADR-008 and ADR-013 stay.
