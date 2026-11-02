@@ -56,9 +56,9 @@ Las tecnologías nunca deben ser el elemento principal.
 
 ## UI/UX
 
-- Dark UI.
-- Acento cyan.
-- Gradiente violeta → azul → cyan solo para highlights.
+- Dark UI, dirección Dark Engineering Premium (ADR-014).
+- Título en blanco sólido. El cyan marca la acción y el foco. El azul da profundidad.
+- Sin degradado violeta → azul → cyan en titulares. El violeta no es acento de marca.
 - Tipografía sans moderna.
 - Monospace solo para labels técnicos.
 - Microinteracciones sutiles.
@@ -99,3 +99,13 @@ No debe:
 ## Cambios de arquitectura
 
 Toda decisión importante nueva debe documentarse como ADR antes de implementarse.
+
+<!-- BEGIN:nextjs-agent-rules -->
+
+## This is NOT the Next.js you know
+
+This version has breaking changes — APIs, conventions, and file structure may all differ from your training data. Read the relevant guide in `node_modules/next/dist/docs/` (resolved from this file's directory; in monorepos the `next` package may not be visible from the repo root) before writing any code. Heed deprecation notices.
+
+This block is written and re-added by `next dev` — verify at `node_modules/next/dist/server/lib/generate-agent-files.js`. Removing it from a diff only re-creates the uncommitted change; committing it with your work keeps the tree clean.
+
+<!-- END:nextjs-agent-rules -->

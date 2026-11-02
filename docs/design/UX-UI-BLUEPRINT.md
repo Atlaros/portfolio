@@ -105,7 +105,9 @@ CTA de cada card: debe navegar de verdad y mantener semántica. Navegación por 
 
 ## 5. «Ingeniería en acción» (después, NO duplicar Hero)
 
-El Hero responde **qué construiste**; esta sección responde **cómo y por qué funciona**. Cambiar `Approach.tsx` de tabs+panel textual a explorador de sistemas.
+**Shipped (Phase C, ADR-015):** la home usa **Engineering Capabilities** — tablist editorial con evidencia enlazada a casos MDX publicados (`components/capabilities/*`). Mantiene `id="approach"` para el CTA del Hero.
+
+El Hero responde **qué construiste**; un explorador posterior puede responder **cómo y por qué funciona** sin repetir el Product Stage. Cambiar `Approach.tsx` de tabs+panel textual a explorador de sistemas sigue como trabajo opcional (Phase G+).
 
 Concepto: selector de proyecto / vista de arquitectura visual / nodos y conexiones / panel de decisión de ingeniería / enlace a evidencia/case study. Los nodos muestran contexto real: tarea, decisión, dependencia, validación, limitaciones; si el diagrama es pedagógico, rótulo «Ilustrativo». No mostrar nodos inertes que parezcan clicables.
 

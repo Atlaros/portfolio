@@ -1,5 +1,6 @@
-import { CardEntrance } from "@/components/motion/CardEntrance";
-import { ProjectCard, projectCardSpansRow } from "@/components/projects/ProjectCard";
+import { AcademShowcase } from "@/components/projects/AcademShowcase";
+import { PartnerShowcase } from "@/components/projects/PartnerShowcase";
+import { TramitShowcase } from "@/components/projects/TramitShowcase";
 import type { Project } from "@/domain/project";
 import { projectCopy } from "@/lib/i18n/projects";
 import type { Locale } from "@/lib/i18n/locales";
@@ -7,6 +8,22 @@ import type { Locale } from "@/lib/i18n/locales";
 interface FeaturedProjectsProps {
   locale: Locale;
   projects: Project[];
+}
+
+function ProjectShowcase({ locale, project }: { locale: Locale; project: Project }) {
+  if (project.slug === "tramit-ia") {
+    return <TramitShowcase locale={locale} project={project} />;
+  }
+
+  if (project.slug === "academ-ia") {
+    return <AcademShowcase locale={locale} project={project} />;
+  }
+
+  if (project.slug === "partner-intelligence") {
+    return <PartnerShowcase locale={locale} project={project} />;
+  }
+
+  return null;
 }
 
 export function FeaturedProjects({ locale, projects }: FeaturedProjectsProps) {
@@ -23,26 +40,15 @@ export function FeaturedProjects({ locale, projects }: FeaturedProjectsProps) {
     >
       <h2
         id="featured-projects"
-        className="text-2xl font-medium tracking-tight text-foreground sm:text-3xl"
+        className="scroll-mt-28 text-3xl font-semibold tracking-tight text-foreground sm:text-4xl"
       >
         {copy.sectionTitle}
       </h2>
-      <ul className="mt-8 grid list-none grid-cols-1 gap-6 p-0 md:grid-cols-2">
-        {projects.map((project, index) => (
-          <li
-            key={project.id}
-            className={projectCardSpansRow(project) ? "md:col-span-2" : undefined}
-          >
-            <CardEntrance index={index}>
-              <ProjectCard
-                locale={locale}
-                project={project}
-                headingLevel="h3"
-              />
-            </CardEntrance>
-          </li>
+      <div className="mt-12 flex flex-col gap-20 xl:gap-28">
+        {projects.map((project) => (
+          <ProjectShowcase key={project.id} locale={locale} project={project} />
         ))}
-      </ul>
+      </div>
     </section>
   );
 }

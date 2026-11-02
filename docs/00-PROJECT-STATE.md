@@ -21,8 +21,8 @@ Construir un portafolio interactivo que demuestre capacidad para resolver proble
 - Case study por proyecto
 - Catálogo de proyectos
 - Filtros por área
-- Sección Engineering Approach
-- Capabilities
+- Sección Engineering Capabilities en home (ADR-015; hash `#approach` hasta Phase G)
+- Engineering Explorer (opcional, blueprint) — pendiente
 - About
 - Experience
 - Contact
@@ -49,7 +49,7 @@ Recomendación: lanzar V1 sin Copilot para que no bloquee el lanzamiento y agreg
 - La narrativa principal es:
   **Problema → Solución → Cómo se resolvió → Beneficio**
 - Tecnologías como evidencia secundaria.
-- Dark UI + cyan + gradiente azul/violeta/cyan.
+- Dark UI, Dark Engineering Premium (ADR-014): título blanco, cyan de acción, azul de profundidad. Sin degradado violeta en titulares.
 - Microinteracciones y movimiento suave con mouse.
 - Copilot especializado en el trabajo de Diego.
 - Idioma del sitio: español (`es`), inglés (`en`) y portugués (`pt`), con selector visible. Locale por defecto: `es`. Contenido en `content/es/`, `content/en/` y `content/pt/` (ADR-011).

@@ -21,8 +21,8 @@ interface ApproachCopy {
 
 const approachCopy = {
   es: {
-    eyebrow: "Enfoque",
-    title: "El orden del trabajo",
+    eyebrow: "Ingeniería",
+    title: "Ingeniería en acción",
     lead: "No abro por el stack. Abro por el problema, decido qué sistema hace falta y lo dejo en un estado que se puede explicar.",
     steps: [
       {
@@ -58,8 +58,8 @@ const approachCopy = {
     ],
   },
   en: {
-    eyebrow: "Approach",
-    title: "The order of the work",
+    eyebrow: "Engineering",
+    title: "Engineering in action",
     lead: "I do not open with the stack. I open with the problem, decide which system is needed, and leave it in a state that can be explained.",
     steps: [
       {
@@ -95,8 +95,8 @@ const approachCopy = {
     ],
   },
   pt: {
-    eyebrow: "Abordagem",
-    title: "A ordem do trabalho",
+    eyebrow: "Engenharia",
+    title: "Engenharia em ação",
     lead: "Não começo pelo stack. Começo pelo problema, decido qual sistema faz falta e deixo isso num estado que dá para explicar.",
     steps: [
       {

@@ -5,29 +5,37 @@ interface HomeCopy {
   line1: string;
   line2: string;
   support: string;
+  primaryCta: string;
+  secondaryCta: string;
 }
 
 const homeCopy = {
   es: {
     eyebrow: "AI & Agentic Systems Engineer",
-    line1: "Ingeniería de soluciones",
-    line2: "desde los datos.",
+    line1: "Software, datos e inteligencia artificial",
+    line2: "convertidos en soluciones reales.",
     support:
-      "Construyo sistemas prácticos que conectan IA generativa, pipelines de datos confiables e ingeniería de software con problemas reales.",
+      "Diseño y desarrollo sistemas de software, datos e IA para resolver problemas concretos.",
+    primaryCta: "Ver proyectos",
+    secondaryCta: "Ver capacidades",
   },
   en: {
     eyebrow: "AI & Agentic Systems Engineer",
-    line1: "Engineering solutions",
-    line2: "from data.",
+    line1: "Software, data, and artificial intelligence",
+    line2: "turned into working solutions.",
     support:
-      "I build practical systems that connect generative AI, reliable data pipelines, and software engineering to real problems.",
+      "I design and build software, data, and AI systems that solve concrete problems.",
+    primaryCta: "See projects",
+    secondaryCta: "See capabilities",
   },
   pt: {
     eyebrow: "AI & Agentic Systems Engineer",
-    line1: "Engenharia de soluções",
-    line2: "a partir dos dados.",
+    line1: "Software, dados e inteligência artificial",
+    line2: "convertidos em soluções reais.",
     support:
-      "Construo sistemas práticos que ligam IA generativa, pipelines de dados confiáveis e engenharia de software a problemas reais.",
+      "Desenho e desenvolvo sistemas de software, dados e IA para resolver problemas concretos.",
+    primaryCta: "Ver projetos",
+    secondaryCta: "Ver capacidades",
   },
 } as const satisfies Record<Locale, HomeCopy>;
 

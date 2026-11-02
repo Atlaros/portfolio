@@ -69,7 +69,7 @@ Problema → Solución → Cómo se resolvió → Beneficio.
 Las tecnologías son información secundaria.
 
 ### REQ-009
-Dark UI con cyan y gradiente violeta/azul/cyan.
+Dark UI, Dark Engineering Premium (ADR-014): título blanco, cyan de acción y azul de profundidad. Sin degradado violeta en titulares.
 
 ### REQ-010
 El portafolio debe crecer progresivamente.

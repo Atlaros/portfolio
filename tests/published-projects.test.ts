@@ -24,8 +24,22 @@ describe("getPublishedProjects", () => {
       );
 
       expect(tramit?.liveUrl).toBe(tramitLiveUrl);
+      expect(tramit?.screenshots?.map((shot) => shot.src)).toEqual([
+        "/projects/tramitia/welcome.webp",
+        "/projects/tramitia/queries.webp",
+        "/projects/tramitia/recovered-card.webp",
+      ]);
       expect(academ?.liveUrl).toBeUndefined();
+      expect(academ?.screenshots?.map((shot) => shot.src)).toEqual([
+        "/projects/academia/search.webp",
+        "/projects/academia/universities.webp",
+        "/projects/academia/compare.webp",
+      ]);
       expect(partner?.liveUrl).toBe(partnerLiveUrl);
+      expect(partner?.screenshots?.map((shot) => shot.src)).toEqual([
+        "/projects/partner-intelligence/programs.webp",
+        "/projects/partner-intelligence/organizations.webp",
+      ]);
       expect(partner?.repositoryUrl).toBeUndefined();
       expect(JSON.stringify(partner)).not.toContain("1050");
       expect(JSON.stringify(partner)).not.toContain("1,050");

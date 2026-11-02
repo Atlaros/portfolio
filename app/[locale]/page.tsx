@@ -1,5 +1,5 @@
 import { notFound } from "next/navigation";
-import { Approach } from "@/components/approach/Approach";
+import { Capabilities } from "@/components/capabilities/Capabilities";
 import { Hero } from "@/components/hero/Hero";
 import { SiteHeader } from "@/components/layout/SiteHeader";
 import { CopilotPanel } from "@/components/copilot/CopilotPanel";
@@ -27,7 +27,6 @@ export default async function HomePage({ params }: HomePageProps) {
       <SiteHeader locale={locale} current="home" />
       <main>
         <Hero locale={locale} />
-        <Approach locale={locale} />
         {featured.length > 0 ? (
           <div className="relative">
             <FeaturedProjects locale={locale} projects={featured} />
@@ -44,6 +43,7 @@ export default async function HomePage({ params }: HomePageProps) {
             <CatalogHomeLink locale={locale} />
           </p>
         )}
+        <Capabilities locale={locale} projects={projects} />
         <CopilotPanel locale={locale} projects={projects} />
       </main>
     </>

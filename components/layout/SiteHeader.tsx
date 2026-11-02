@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { approachCopy } from "@/lib/i18n/approach";
+import { capabilitiesCopy } from "@/lib/i18n/capabilities";
 import { projectCopy } from "@/lib/i18n/projects";
 import type { Locale } from "@/lib/i18n/locales";
 import { LocaleSwitcher } from "./LocaleSwitcher";
@@ -47,7 +47,7 @@ export function SiteHeader({ locale, current }: SiteHeaderProps) {
             href={`/${locale}#approach`}
             className={`${focusRing} text-base text-foreground`}
           >
-            {approachCopy[locale].eyebrow}
+            {capabilitiesCopy[locale].navLabel}
           </Link>
         </div>
         <LocaleSwitcher locale={locale} />

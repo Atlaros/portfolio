@@ -2,50 +2,51 @@
 
 ## Dirección
 
-Dark Data / AI / Engineering.
+Dark Engineering Premium (ADR-014), dentro de Interactive Engineering Showcase.
 
-Debe sentirse como un producto tecnológico profesional.
+Debe sentirse como un producto tecnológico profesional. El título va en blanco sólido. El cyan marca la acción y el foco. El azul da profundidad. El violeta no es acento de marca y no hay titulares con degradado.
 
-## Paleta inicial
+## Paleta
+
+Aceptada en ADR-014. Los tokens viven en `app/globals.css`.
 
 ```text
-Background      #080A12
-Surface         #10131D
-Primary text    #F6F7FA
-Muted text      #969DAC
-Cyan            #18E0E0
+Background      #0B101B
+Surface         #121A28
+Surface raised  #172132
+Primary text    #F5F7FA
+Muted text      #A7B3C7
+Cyan            #18D4D8
 Blue            #4D7CFF
-Purple          #985CFF
+Border          #334155
 ```
+
+La paleta anterior (`#080A12`, `#10131D`, `#F6F7FA`, `#969DAC`, `#18E0E0`, `#985CFF`) queda reemplazada.
 
 ## Contraste (WCAG 2.x)
 
-Ratios calculados con luminancia relativa WCAG:
+Ratios calculados con luminancia relativa WCAG el 2026-10-31:
 
-| Color | Sobre Background `#080A12` | Sobre Surface `#10131D` | Uso |
-|---|---|---|---|
-| Primary text `#F6F7FA` | 18.45:1 | 17.30:1 | Texto (AAA) |
-| Muted text `#969DAC` | 7.26:1 | 6.81:1 | Texto body (AA; AAA sobre Background) |
-| Cyan `#18E0E0` | 12.03:1 | 11.28:1 | Texto y acentos (AAA) |
-| Blue `#4D7CFF` | 5.31:1 | 4.98:1 | Texto AA (no AAA); preferir links, labels o texto grande |
-| Purple `#985CFF` | 5.00:1 | 4.69:1 | Texto AA justo; preferir texto grande, highlights o decorativo |
+| Color | Sobre Background `#0B101B` | Sobre Surface `#121A28` | Sobre Surface raised `#172132` | Uso |
+|---|---|---|---|---|
+| Primary text `#F5F7FA` | 17.72:1 | 16.25:1 | 15.05:1 | Texto (AAA) |
+| Muted text `#A7B3C7` | 8.98:1 | 8.23:1 | 7.63:1 | Texto body (AAA) |
+| Cyan `#18D4D8` | 10.37:1 | 9.51:1 | 8.81:1 | Acción, foco y acentos (AAA) |
+| Blue `#4D7CFF` | 5.11:1 | 4.69:1 | 4.34:1 | Profundidad. AA sobre Background y Surface; no usarlo como texto chico sobre Surface raised |
 
 Umbrales: AA texto normal ≥ 4.5:1, AA texto grande ≥ 3:1, AAA texto normal ≥ 7:1.
 
 Reglas:
 
 - Body text: Primary o Muted.
-- Blue y Purple pasan AA, pero con poco margen (sobre Surface quedan cerca de 4.5:1); no usarlos para párrafos largos ni texto pequeño.
-- El gradiente sobre texto (`FROM DATA.`) es texto grande; todas las paradas superan 3:1.
+- Cyan es el acento de acción. No pintar párrafos enteros de cyan.
+- Blue no se usa para párrafos ni para texto chico sobre Surface raised.
+- El borde `#334155` separa superficies. No es color de texto.
 - Verificar contraste de nuevo si cambia algún color o se usa opacidad.
 
-## Gradiente
+## Color
 
-Solo para highlights:
-
-```text
-Purple → Blue → Cyan
-```
+Sin degradado violeta → azul → cyan. Un título es blanco. Una luz radial cyan o azul puede vivir detrás del producto, no sobre las letras.
 
 ## Tipografía
 
@@ -87,7 +88,7 @@ Mensaje principal:
 **ENGINEERING SOLUTIONS  
 FROM DATA.**
 
-`FROM DATA.` usa el gradiente principal.
+La segunda línea usa el mismo blanco que el resto del título. No lleva degradado.
 
 ## Motion system
 
