@@ -3,17 +3,23 @@ id: tramit-ia
 slug: tramit-ia
 title: TramitIA
 tagline: Guidance on procedures in Santa Cruz de la Sierra
-summary: A public pilot that answers with published fact sheets. If a procedure is not in the catalog, it says so and searches the internet. It is not a City Hall site.
-problem: Information on procedures of the municipality and its sub-municipalities is not gathered into guidance a person can consult.
-whyItMatters: It is an independent public pilot, deployed on AWS, for getting oriented without treating the site as if it were City Hall.
-solution: A website that answers with the catalog's published fact sheets.
-approach: If the procedure is not in the catalog, the system says so and searches the internet. In-person verification remains in the editorial work.
+summary: A public pilot that answers from published municipal fact sheets. If a procedure is not in the catalog, it says so and may search the web. It is not a City Hall site.
+problem: Municipal procedure information in Santa Cruz de la Sierra is scattered across sources that are hard for a citizen to assemble into clear guidance without inventing requirements.
+whyItMatters: People need orientation they can trust without treating an independent pilot as an official City Hall channel.
+solution: A RAG assistant over published procedure fact sheets, with a Next.js interface and a FastAPI/LangGraph backend backed by PostgreSQL and pgvector.
+approach: Retrieval is anchored to published procedure cards in the catalog. When a procedure is missing, the system states that explicitly and may fall back to a web search for orientation only. Editorial review and in-person verification remain outside the model and are not claimed as automated guarantees.
 engineeringDecisions:
-  - The documented stack is Next.js and TypeScript, Python and FastAPI, LangGraph, PostgreSQL and pgvector.
-  - The published fact sheets are the data that is answered.
+  - Answers are anchored to published fact sheets rather than free-form speculation about requirements.
+  - Missing catalog coverage produces an explicit negative instead of inventing steps.
+  - Relevance and source checks gate what is presented as grounded in the catalog.
+  - The public pilot is framed as independent orientation, not as the City Hall site.
+validation: Focused retrieval and source-check exercises described in the portfolio materials confirm that answers stay tied to published sheets and that gaps are acknowledged; no accuracy percentage is claimed.
 benefits:
-  - Guides people on procedures of the municipality of Santa Cruz de la Sierra and its sub-municipalities.
-  - Distinguishes the pilot from an official City Hall site.
+  - Offers public orientation for Santa Cruz de la Sierra municipal procedures from a published catalog.
+  - Separates catalog-grounded answers from optional internet fallback.
+  - Keeps the pilot clearly distinct from official City Hall channels.
+limitations: Scope is a pilot; availability may vary. The site is not official City Hall. Internet fallback is orientation only and is not a municipal source of truth.
+participation: personal
 categories:
   - ai
 technologies:
@@ -24,6 +30,8 @@ technologies:
   - LangGraph
   - PostgreSQL
   - pgvector
+  - AWS
+  - Docker
 featured: true
 order: 1
 liveUrl: "https://tramitia-bolivia.mywire.org"
@@ -43,15 +51,3 @@ screenshots:
 status: published
 maturity: demo
 ---
-
-## Problem
-
-Information on procedures of the municipality and its sub-municipalities is not gathered into guidance a person can consult.
-
-## Solution
-
-A website that answers with the catalog's published fact sheets.
-
-## Approach
-
-If the procedure is not in the catalog, the system says so and searches the internet. In-person verification remains in the editorial work.

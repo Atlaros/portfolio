@@ -66,7 +66,9 @@ interface Project {
   solution: string;
   approach: string;
   engineeringDecisions?: string[];
+  validation?: string;
   benefits: string[];
+  limitations?: string;
   metrics?: ProjectMetric[];
   categories: ProjectCategory[];
   technologies?: string[];
@@ -128,7 +130,9 @@ const projectSchema = z.object({
   solution: requiredText,
   approach: requiredText,
   engineeringDecisions: textList.optional(),
+  validation: optionalText,
   benefits: textList,
+  limitations: optionalText,
   metrics: z.array(projectMetricSchema).optional(),
   categories: z.array(z.enum(PROJECT_CATEGORY)),
   technologies: textList.optional(),

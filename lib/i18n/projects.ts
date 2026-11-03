@@ -18,7 +18,9 @@ interface ProjectCopy {
   solution: string;
   approach: string;
   engineeringDecisions: string;
+  validation: string;
   benefits: string;
+  limitations: string;
   technologies: string;
   participation: Record<ProjectParticipation, string>;
   categories: Record<ProjectCategory, string>;
@@ -40,9 +42,11 @@ const projectCopy = {
     problem: "Problema",
     whyItMatters: "Por qué importa",
     solution: "Solución",
-    approach: "Enfoque",
-    engineeringDecisions: "Decisiones de ingeniería",
-    benefits: "Beneficios",
+    approach: "Arquitectura",
+    engineeringDecisions: "Decisiones técnicas",
+    validation: "Validación",
+    benefits: "Resultado",
+    limitations: "Limitaciones",
     technologies: "Tecnologías",
     participation: {
       personal: "Personal",
@@ -71,9 +75,11 @@ const projectCopy = {
     problem: "Problem",
     whyItMatters: "Why it matters",
     solution: "Solution",
-    approach: "Approach",
-    engineeringDecisions: "Engineering decisions",
-    benefits: "Benefits",
+    approach: "Architecture",
+    engineeringDecisions: "Technical decisions",
+    validation: "Validation",
+    benefits: "Outcome",
+    limitations: "Limitations",
     technologies: "Technologies",
     participation: {
       personal: "Personal",
@@ -102,9 +108,11 @@ const projectCopy = {
     problem: "Problema",
     whyItMatters: "Por que importa",
     solution: "Solução",
-    approach: "Abordagem",
-    engineeringDecisions: "Decisões de engenharia",
-    benefits: "Benefícios",
+    approach: "Arquitetura",
+    engineeringDecisions: "Decisões técnicas",
+    validation: "Validação",
+    benefits: "Resultado",
+    limitations: "Limitações",
     technologies: "Tecnologias",
     participation: {
       personal: "Pessoal",

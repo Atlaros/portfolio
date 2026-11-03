@@ -3,33 +3,42 @@ id: academ-ia
 slug: academ-ia
 title: AcademIA
 tagline: Finding studies in Bolivia, starting with Santa Cruz
-summary: A platform for locating courses, workshops, degree programs, and graduate programs when the information is scattered. The current version runs on the local machine.
-problem: People need to know whether the study they are looking for exists, who offers it, the requirements, the price, the modality, and the dates. The information is scattered and it is costly to compare.
-whyItMatters: The starting point is Santa Cruz, with national scope, for high-school graduates, university students, and professionals. There are no announced clients or partnerships.
-solution: A platform for finding study options and following them.
-approach: The documentation provides for collection from official sources and networks, with editorial review before publishing. The current README limits execution to the local machine.
+summary: A searchable academic catalog with university browse and side-by-side comparison. The app was packaged for a single-instance AWS EC2 host; this portfolio does not list a public demo URL.
+problem: Academic offerings are scattered across sources, so comparing programs, requirements, modality, and timing is slow and inconsistent.
+whyItMatters: Prospective students need a unified discovery path that starts in Santa Cruz with national-scope intent, without announced clients or partnerships.
+solution: A searchable catalog with university browse, side-by-side program comparison, and account-specific flows, built as a Next.js monolith over normalized program data.
+approach: Architecture separates three layers. The application is a Next.js service with PostgreSQL, Supabase Auth plus an application session cookie, Docker, and a documented single-host AWS EC2 path (runner image and Caddy). The editorial catalog is curated primarily in local Postgres, with an authorized transfer plan toward Supabase for hosted environments. Published program rows in that catalog are editorial publications inside the product database, not a claim that a public website is currently online.
 engineeringDecisions:
-  - The README documents a Next.js monolith, Supabase Auth, and its own session cookie.
-  - Docker is documented for the local image. There is no declared public deployment.
+  - Heterogeneous program data is normalized before search and comparison.
+  - Verified enrollment information is distinguished from unconfirmed fields.
+  - Structured filters support discovery without implying complete national coverage.
+  - Hosting targets a single EC2 instance with Docker and Caddy; the portfolio does not publish a live demo URL.
+  - Catalog transfer to a hosted database is treated as an explicit, authorized step—not an automatic side effect of building the app.
+validation: Editorial review gates source material before program rows are marked published in the catalog. Production-style checks documented for the deploy path include health and explore flows; no public uptime or accuracy KPIs are claimed here.
 benefits:
-  - Brings together the search for studies that is scattered today.
-  - Does not present the local prototype as a public service already launched.
+  - Unifies discovery and comparison of academic offerings starting from Santa Cruz.
+  - Supports side-by-side comparison of programs of the same type.
+  - "Separates the deployed application path, the local editorial catalog, and what is marked published in data."
+limitations: No public demo URL is listed on this site. Catalog counts visible in screenshots are not current verified KPIs. A past or prepared AWS host does not imply continuous public availability.
+participation: personal
 categories:
   - data-engineering
 technologies:
   - Next.js
+  - PostgreSQL
   - Supabase Auth
   - Docker
+  - AWS
 featured: true
 order: 2
 screenshots:
   - src: /projects/academia/search.webp
     alt: AcademIA home with the study search.
-    caption: Search gathers studies that are scattered today. It runs locally.
+    caption: Search gathers studies that are otherwise scattered. Coverage remains partial.
     type: image
   - src: /projects/academia/universities.webp
     alt: Universities with programs published in AcademIA.
-    caption: Exploration shows institutions. The screen says coverage is still partial.
+    caption: Exploration shows institutions. Coverage remains partial.
     type: image
   - src: /projects/academia/compare.webp
     alt: Comparison of two business-administration programs in AcademIA.
@@ -38,15 +47,3 @@ screenshots:
 status: published
 maturity: prototype
 ---
-
-## Problem
-
-People need to know whether the study they are looking for exists, who offers it, the requirements, the price, the modality, and the dates. The information is scattered and it is costly to compare.
-
-## Solution
-
-A platform for finding study options and following them.
-
-## Approach
-
-The documentation provides for collection from official sources and networks, with editorial review before publishing. The current README limits execution to the local machine.

@@ -3,33 +3,42 @@ id: academ-ia
 slug: academ-ia
 title: AcademIA
 tagline: Encontrar estudos na Bolívia, começando por Santa Cruz
-summary: Plataforma para localizar cursos, oficinas, graduações e pós-graduações quando a informação está dispersa. A versão atual roda na máquina local.
-problem: As pessoas precisam saber se existe o estudo que procuram, quem o oferece, requisitos, preço, modalidade e datas. A informação está dispersa e custa comparar.
-whyItMatters: O ponto de partida é Santa Cruz, com alcance nacional, para concluintes do ensino médio, universitários e profissionais. Não há clientes nem parcerias anunciadas.
-solution: Uma plataforma para encontrar opções de estudo e acompanhá-las.
-approach: A documentação prevê a coleta a partir de fontes oficiais e redes, com revisão editorial antes de publicar. O README atual limita a execução à máquina local.
+summary: Catálogo acadêmico pesquisável com exploração por universidade e comparação lado a lado. O app foi empacotado para um host AWS EC2 de uma única instância; este portfólio não lista uma URL de demo pública.
+problem: A oferta acadêmica está dispersa entre fontes, o que torna lenta e inconsistente a comparação de programas, requisitos, modalidade e datas.
+whyItMatters: Quem busca estudar precisa de um caminho unificado de descoberta que parta de Santa Cruz com intenção de alcance nacional, sem clientes nem parcerias anunciadas.
+solution: Um catálogo pesquisável com exploração por universidade, comparação lado a lado de programas e fluxos com conta, construído como monólito Next.js sobre dados de programas normalizados.
+approach: A arquitetura separa três camadas. A aplicação é um serviço Next.js com PostgreSQL, Supabase Auth mais cookie de sessão próprio, Docker e um caminho documentado de host único em AWS EC2 (imagem runner e Caddy). O catálogo editorial é curado sobretudo em Postgres local, com um plano autorizado de transferência para Supabase em ambientes hospedados. As linhas de programa publicadas nesse catálogo são publicações editoriais dentro da base do produto, não uma afirmação de que um site público esteja online agora.
 engineeringDecisions:
-  - O README documenta um monólito Next.js, Supabase Auth e um cookie de sessão próprio.
-  - O Docker está documentado para a imagem local. Não há uma implantação pública declarada.
+  - Dados heterogêneos de programas são normalizados antes da busca e da comparação.
+  - Informação de matrícula verificada é distinguida de campos não confirmados.
+  - Filtros estruturados apoiam a descoberta sem implicar cobertura nacional completa.
+  - O hosting mira uma única instância EC2 com Docker e Caddy; o portfólio não publica uma URL de demo ao vivo.
+  - A transferência do catálogo para uma base hospedada é um passo explícito e autorizado — não um efeito automático do build.
+validation: A revisão editorial condiciona o material de fonte antes de marcar programas como publicados no catálogo. Checagens de estilo produção documentadas para o deploy incluem saúde e fluxos de exploração; aqui não se afirmam KPIs de disponibilidade nem de exatidão pública.
 benefits:
-  - Reúne a busca de estudos que hoje está dispersa.
-  - Não apresenta o protótipo local como um serviço público já lançado.
+  - Unifica a descoberta e a comparação da oferta acadêmica a partir de Santa Cruz.
+  - Permite comparar programas do mesmo tipo lado a lado.
+  - "Separa a via de aplicação implantável, o catálogo editorial local e o que está marcado como publicado nos dados."
+limitations: Este site não lista uma URL de demo pública. Contagens de catálogo visíveis em capturas não são KPIs verificados atuais. Um host AWS passado ou preparado não implica disponibilidade pública contínua.
+participation: personal
 categories:
   - data-engineering
 technologies:
   - Next.js
+  - PostgreSQL
   - Supabase Auth
   - Docker
+  - AWS
 featured: true
 order: 2
 screenshots:
   - src: /projects/academia/search.webp
     alt: Início do AcademIA com a busca de estudos.
-    caption: A busca reúne estudos que hoje estão dispersos. Roda em local.
+    caption: A busca reúne estudos que de outro modo estão dispersos. A cobertura continua parcial.
     type: image
   - src: /projects/academia/universities.webp
     alt: Universidades com programas publicados no AcademIA.
-    caption: A exploração mostra instituições. A tela diz que a cobertura é parcial.
+    caption: A exploração mostra instituições. A cobertura continua parcial.
     type: image
   - src: /projects/academia/compare.webp
     alt: Comparação de dois programas de administração no AcademIA.
@@ -38,15 +47,3 @@ screenshots:
 status: published
 maturity: prototype
 ---
-
-## Problema
-
-As pessoas precisam saber se existe o estudo que procuram, quem o oferece, requisitos, preço, modalidade e datas. A informação está dispersa e custa comparar.
-
-## Solução
-
-Uma plataforma para encontrar opções de estudo e acompanhá-las.
-
-## Abordagem
-
-A documentação prevê a coleta a partir de fontes oficiais e redes, com revisão editorial antes de publicar. O README atual limita a execução à máquina local.
