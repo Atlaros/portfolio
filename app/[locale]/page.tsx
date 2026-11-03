@@ -5,6 +5,8 @@ import { SiteHeader } from "@/components/layout/SiteHeader";
 import { CopilotPanel } from "@/components/copilot/CopilotPanel";
 import { FeaturedProjects } from "@/components/projects/FeaturedProjects";
 import { CatalogHomeLink } from "@/components/projects/ProjectCatalog";
+import { RelevantProjects } from "@/components/projects/RelevantProjects";
+import { TechnicalTrajectory } from "@/components/projects/TechnicalTrajectory";
 import { isLocale } from "@/lib/i18n/locales";
 import { getPublishedProjects } from "@/lib/projects/repository";
 
@@ -43,6 +45,8 @@ export default async function HomePage({ params }: HomePageProps) {
             <CatalogHomeLink locale={locale} />
           </p>
         )}
+        <RelevantProjects locale={locale} projects={projects} />
+        <TechnicalTrajectory locale={locale} />
         <Capabilities locale={locale} projects={projects} />
         <CopilotPanel locale={locale} projects={projects} />
       </main>

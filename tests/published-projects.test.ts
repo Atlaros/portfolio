@@ -2,14 +2,21 @@ import { describe, expect, it } from "vitest";
 import { locales, type Locale } from "@/lib/i18n/locales";
 import { getPublishedProjects } from "@/lib/projects/repository";
 
-const publishedSlugs = ["tramit-ia", "academ-ia", "partner-intelligence"] as const;
+const publishedSlugs = [
+  "tramit-ia",
+  "academ-ia",
+  "partner-intelligence",
+  "inventoryiq",
+  "trustscore",
+  "autostory-builder",
+] as const;
 
 const tramitLiveUrl = "https://tramitia-bolivia.mywire.org";
 const partnerLiveUrl = "https://partner-intelligence.onrender.com";
 
 describe("getPublishedProjects", () => {
   it.each(Object.values(locales))(
-    "returns tramit-ia, academ-ia, and partner-intelligence in that order for %s",
+    "returns featured then level-two published projects in order for %s",
     (locale: Locale) => {
       const projects = getPublishedProjects(locale);
 
@@ -22,6 +29,16 @@ describe("getPublishedProjects", () => {
       const partner = projects.find(
         (project) => project.slug === "partner-intelligence",
       );
+      const inventory = projects.find((project) => project.slug === "inventoryiq");
+      const trust = projects.find((project) => project.slug === "trustscore");
+      const autostory = projects.find(
+        (project) => project.slug === "autostory-builder",
+      );
+
+      expect(inventory?.featured).toBe(false);
+      expect(trust?.featured).toBe(false);
+      expect(autostory?.featured).toBe(false);
+      expect(autostory?.repositoryUrl).toBe("https://github.com/Atlaros/AutoStory");
 
       expect(tramit?.liveUrl).toBe(tramitLiveUrl);
       expect(tramit?.screenshots?.map((shot) => shot.src)).toEqual([

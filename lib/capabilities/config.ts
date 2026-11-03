@@ -18,7 +18,7 @@ const CAPABILITY_EVIDENCE_SLUGS: Record<CapabilityId, readonly string[]> = {
   [CAPABILITY_ID.aiAgentic]: ["tramit-ia"],
   [CAPABILITY_ID.data]: ["academ-ia", "partner-intelligence"],
   [CAPABILITY_ID.fullstack]: ["tramit-ia", "academ-ia"],
-  [CAPABILITY_ID.ml]: [],
+  [CAPABILITY_ID.ml]: ["inventoryiq", "trustscore"],
 };
 
 export { CAPABILITY_EVIDENCE_SLUGS, CAPABILITY_ID, CAPABILITY_ORDER, type CapabilityId };

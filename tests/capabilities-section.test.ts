@@ -34,7 +34,10 @@ describe("engineering capabilities copy", () => {
       "tramit-ia",
       "academ-ia",
     ]);
-    expect(CAPABILITY_EVIDENCE_SLUGS[CAPABILITY_ID.ml]).toEqual([]);
+    expect(CAPABILITY_EVIDENCE_SLUGS[CAPABILITY_ID.ml]).toEqual([
+      "inventoryiq",
+      "trustscore",
+    ]);
   });
 
   it("uses truthful lead copy and English display names without Phase D wording", () => {
@@ -91,10 +94,12 @@ describe("engineering capabilities section", () => {
     expect(page).not.toContain("<Approach");
   });
 
-  it("keeps Phase D candidates in the prep module without public UI wiring", () => {
+  it("keeps the pending prep module empty for published ML cases and off the UI", () => {
     const pending = readFileSync("lib/capabilities/pending-evidence.ts", "utf8");
-    expect(pending).toContain("InventoryIQ");
-    expect(pending).toContain("TrustScore");
+    expect(pending).toContain("CAPABILITY_EVIDENCE_SLUGS.ml");
+    expect(pending).not.toContain("InventoryIQ");
+    expect(pending).not.toContain("TrustScore");
     expect(pending).not.toContain("http");
   });
 });
+

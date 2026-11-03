@@ -185,9 +185,15 @@ ADR-011 is accepted (`es`, `en`, `pt`, default `es`). The implementation plan sa
   - Captures: `docs/design/review/iteration-c2/before|after/`.
   - Checks: lint, typecheck, 50 tests, build OK. No commit.
 
+- [x] `TASK-037` Phase D — three-tier projects. Route: delegated. Hero, showcases, Capabilities untouched. No commit.
+  - Optional `participation` on project schema; MDX for inventoryiq, trustscore, autostory-builder (`featured: false`).
+  - Home order: Featured → RelevantProjects → TechnicalTrajectory → Capabilities → Copilot.
+  - Trajectory data: AuditorIA, Talentify, Quipu AI, Feedback Classifier + Atlaros profile CTA.
+  - Debt: `docs/design/debt-inventory-phase-d.md`. Task file: `odd/tasks/phase-d-project-tiers.md`.
+
 ## Next step
 
-Phase G debt cleanup (archive Approach, rename `#approach` hash) or Phase D when authorized. About/experience/contact still open (`TASK-008`).
+Phase G debt cleanup (archive Approach, rename `#approach` hash). About/experience/contact still open (`TASK-008`).
 
 - [x] `TASK-028` Align the visual rules with Dark Engineering Premium. Route: direct.
   - The user asked to resolve the clash because the kit is a redesign. ADR-014 accepts the new palette and a solid white headline. ADR-008 and ADR-013 stay.

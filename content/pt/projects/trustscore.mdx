@@ -1,0 +1,42 @@
+---
+id: trustscore
+slug: trustscore
+title: TrustScore
+tagline: Scoring de risco de crédito com validação documental e escalonamento humano
+summary: Um protótipo que combina checagem documental com LangGraph e scoring de risco com XGBoost, e escala para revisão humana quando há conflito.
+problem: Decisões de crédito precisam de uma pontuação de risco e de uma verificação de que os documentos de suporte são coerentes; tratar esses passos isoladamente deixa conflitos sem resolução.
+whyItMatters: O conjunto de treino usa dados sintéticos bolivianos de holerites e documentos, então o protótipo demonstra o padrão de orquestração com honestidade e não afirma precisão de produção.
+solution: Um LLM valida o documento, o XGBoost pontua o risco de crédito e o sistema escala para revisão humana quando os dois sinais entram em conflito.
+approach: O LangGraph orquestra validação e scoring. O SQLite guarda o estado de trabalho. O FastAPI expõe o fluxo; o Pytest cobre os ramos críticos. Não se afirmam KPIs de produção sobre dados sintéticos.
+engineeringDecisions:
+  - Manter a validação documental e o scoring de risco como sinais separados para poder escalar o conflito.
+  - Usar dados sintéticos bolivianos de treino e declarar esse limite na narrativa do caso.
+  - Preferir revisão humana à resolução automática quando validação e pontuação divergem.
+benefits:
+  - Torna o conflito documento-versus-pontuação um caminho explícito, não uma falha silenciosa.
+  - Mantém o protótipo limitado à arquitetura verificada sem afirmar precisão inventada.
+categories:
+  - data-science
+  - ai
+technologies:
+  - Python
+  - LangGraph
+  - XGBoost
+  - FastAPI
+  - SQLite
+  - Pytest
+featured: false
+order: 11
+repositoryUrl: "https://github.com/Atlaros/trust_score"
+participation: personal
+status: published
+maturity: prototype
+---
+
+## Problema
+
+Decisões de crédito precisam de uma pontuação de risco e de uma verificação de que os documentos de suporte são coerentes; tratar esses passos isoladamente deixa conflitos sem resolução.
+
+## Solução
+
+Um LLM valida o documento, o XGBoost pontua o risco de crédito e o sistema escala para revisão humana quando os dois sinais entram em conflito.
