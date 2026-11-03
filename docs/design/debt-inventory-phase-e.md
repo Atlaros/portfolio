@@ -6,12 +6,12 @@
 
 ## Hero contact CTA
 
-Hero secondary CTA still points to `#approach` (Capabilities). A contact CTA on the Hero was not added because Phase E must not edit Hero files.
+Hero secondary CTA pointed to `#approach` during Phase E; **Phase G** updated it to `#capabilities`. A contact CTA on the Hero was not added in Phase E.
 
 ## LinkedIn reachability
 
 The LinkedIn URL matches the author’s prior published GitHub Pages site. Automated HEAD checks may return LinkedIn bot responses (HTTP 999); treat human verification in a browser as the source of truth.
 
-## Approach hash rename
+## Approach hash rename — **done in Phase G**
 
-Still deferred to Phase G together with archiving unused Approach components.
+Section id is `capabilities`; unused Approach components removed; `#approach` compat anchor temporary (see Phase G inventory).

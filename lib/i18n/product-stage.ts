@@ -88,7 +88,7 @@ const productStageCopy = {
             id: "busqueda",
             label: "Búsqueda",
             detail: "La persona busca si el estudio existe, quién lo ofrece y en qué condiciones.",
-            decision: "La versión actual corre en la máquina local. No hay un despliegue público.",
+            decision: "La app se empaquetó para un host AWS EC2; este portafolio no lista una demo pública.",
           },
           {
             id: "cursos",
@@ -105,8 +105,8 @@ const productStageCopy = {
           {
             id: "posgrados",
             label: "Posgrados",
-            detail: "Los posgrados son otra vía del catálogo, con el mismo límite de ejecución local.",
-            decision: "El README actual limita la ejecución a la máquina local.",
+            detail: "Los posgrados son otra vía del catálogo; la cura editorial vive sobre todo en Postgres local.",
+            decision: "Publicado en el catálogo no implica un sitio público en línea continuo.",
           },
         ],
         links: [
@@ -114,7 +114,7 @@ const productStageCopy = {
           { from: "busqueda", to: "carreras" },
           { from: "busqueda", to: "posgrados" },
         ],
-        caption: "Corre en local. No es un agente.",
+        caption: "App para EC2; catálogo local. Sin demo pública listada. No es un agente.",
       },
       {
         slug: "partner-intelligence",
@@ -203,7 +203,7 @@ const productStageCopy = {
             id: "busqueda",
             label: "Search",
             detail: "The person looks for whether a study exists, who offers it, and on what terms.",
-            decision: "The current version runs on the local machine. There is no public deployment.",
+            decision: "The app was packaged for a single AWS EC2 host; this portfolio lists no public demo.",
           },
           {
             id: "cursos",
@@ -220,8 +220,8 @@ const productStageCopy = {
           {
             id: "posgrados",
             label: "Graduate programs",
-            detail: "Graduate programs are another catalog path, with the same local execution limit.",
-            decision: "The current README limits execution to the local machine.",
+            detail: "Graduate programs are another catalog path; editorial curation lives mainly in local Postgres.",
+            decision: "Published in the catalog does not mean a continuously public website.",
           },
         ],
         links: [
@@ -229,7 +229,7 @@ const productStageCopy = {
           { from: "busqueda", to: "carreras" },
           { from: "busqueda", to: "posgrados" },
         ],
-        caption: "It runs locally. It is not an agent.",
+        caption: "EC2-ready app; local catalog. No public demo listed. Not an agent.",
       },
       {
         slug: "partner-intelligence",
@@ -318,7 +318,7 @@ const productStageCopy = {
             id: "busqueda",
             label: "Busca",
             detail: "A pessoa procura se o estudo existe, quem o oferece e em que condições.",
-            decision: "A versão atual roda na máquina local. Não há um deploy público.",
+            decision: "O app foi empacotado para um host AWS EC2; este portfólio não lista uma demo pública.",
           },
           {
             id: "cursos",
@@ -335,8 +335,8 @@ const productStageCopy = {
           {
             id: "posgrados",
             label: "Pós-graduações",
-            detail: "As pós-graduações são outro caminho do catálogo, com o mesmo limite local.",
-            decision: "O README atual limita a execução à máquina local.",
+            detail: "As pós-graduações são outro caminho do catálogo; a cura editorial vive sobretudo em Postgres local.",
+            decision: "Publicado no catálogo não implica um site público online contínuo.",
           },
         ],
         links: [
@@ -344,7 +344,7 @@ const productStageCopy = {
           { from: "busqueda", to: "carreras" },
           { from: "busqueda", to: "posgrados" },
         ],
-        caption: "Roda localmente. Não é um agente.",
+        caption: "App para EC2; catálogo local. Sem demo pública listada. Não é um agente.",
       },
       {
         slug: "partner-intelligence",

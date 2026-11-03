@@ -15,7 +15,7 @@ The four capabilities are:
 
 Each capability states what Diego builds and links only to projects published in MDX. Technologies stay secondary and come from project frontmatter when shown.
 
-The section keeps `id="approach"` in this phase so the Hero secondary CTA (`#approach`) remains valid without editing the approved Hero. Navigation label and secondary CTA copy refer to capabilities.
+The section uses `id="capabilities"` as the canonical nav hash (Hero secondary CTA and header). A zero-height `id="approach"` compat anchor remains until inbound legacy links are retired (Phase G).
 
 ## Context
 
@@ -35,10 +35,10 @@ Iteration A shipped an interactive Hero. Iteration B shipped product showcases. 
 
 ## Consequences
 
-- `Approach.tsx` and `lib/i18n/approach.ts` are unused on the home page until Phase G removes or archives them.
+- Phase G removed unused `Approach.tsx`, `HeroFlow.tsx`, and `lib/i18n/approach.ts` / `hero-flow.ts`.
 - Docs that still require a separate Engineering Approach + Capabilities pair must treat Capabilities as the shipped home section; the architecture explorer remains optional later work, not a duplicate of the Hero.
-- Phase G may rename the section id to `capabilities` and update the Hero hash together.
+- Remove the temporary `#approach` compat anchor when analytics show no legacy inbound links.
 
 ## Review
 
-Reopen if a featured Machine Learning case is published in MDX, or if the Hero CTA hash is allowed to change.
+Reopen if a featured Machine Learning case is published in MDX, or when retiring the `#approach` compat anchor.

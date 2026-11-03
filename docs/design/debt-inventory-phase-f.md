@@ -12,5 +12,6 @@ Portfolio case copy distinguishes (1) the application packaged for a single-inst
 ## Open / watch
 
 - Optional future MDX body renderer: if case pages ever render the MDX body, restore a deliberate body contract instead of frontmatter-only narrative.
-- Showcase vs case content drift: home showcases may still say “runs locally”; revisit when showcase copy is next edited (Phase G or a dedicated pass).
+- Showcase vs case AcademIA drift closed in Phase G pre-commit: Product Stage ES/EN/PT now matches case honesty (EC2-ready app, local editorial catalog, no listed public demo).
 - If Diego later authorizes a stable public AcademIA URL, add `liveUrl` only after verification.
+- RAG demo AcademIA fragment may still say “local machine”; out of Phase G showcase scope — revisit in Phase H if needed.

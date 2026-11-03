@@ -37,7 +37,7 @@ export function Hero({ locale }: HeroProps) {
             {copy.primaryCta}
           </a>
           <a
-            href="#approach"
+            href="#capabilities"
             className={`${focusRing} inline-flex min-h-11 items-center border border-foreground/15 px-4 text-sm text-foreground`}
           >
             {copy.secondaryCta}

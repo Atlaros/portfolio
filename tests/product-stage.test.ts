@@ -30,7 +30,9 @@ describe("productStageCopy", () => {
 
     expect(productStageCopy.es.scenes[0].caption).toContain("Alcaldía");
     expect(productStageCopy.es.scenes[1].caption.toLowerCase()).toContain("no es un agente");
-    expect(productStageCopy.es.scenes[1].caption.toLowerCase()).toContain("local");
+    expect(productStageCopy.es.scenes[1].caption.toLowerCase()).toContain("ec2");
+    expect(productStageCopy.es.scenes[1].caption.toLowerCase()).toContain("catálogo local");
+    expect(productStageCopy.es.scenes[1].caption.toLowerCase()).not.toContain("corre en local");
     expect(productStageCopy.es.scenes[2].lines.join(" ")).toContain("AHP/TOPSIS");
     expect(joined).not.toContain("1050");
     expect(joined).not.toContain("10-15");

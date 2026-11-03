@@ -17,35 +17,39 @@ export function Capabilities({ locale, projects }: CapabilitiesProps) {
   const copy = capabilitiesCopy[locale];
 
   return (
-    // ADR-015: Engineering Capabilities; id="approach" until Phase G renames the Hero hash.
-    <section
-      id="approach"
-      aria-labelledby="approach-title"
-      className="mx-auto w-full max-w-6xl scroll-mt-28 px-5 pb-20 sm:px-8"
-    >
-      <p className="font-mono text-xs tracking-[0.22em] text-muted uppercase">{copy.eyebrow}</p>
-      <h2
-        id="approach-title"
-        className="mt-3 max-w-3xl text-3xl font-semibold tracking-tight text-foreground sm:text-4xl"
+    <>
+      {/* Temporary Phase G compat: legacy inbound #approach links scroll here. Remove when safe. */}
+      <div id="approach" className="scroll-mt-28 h-0" aria-hidden="true" />
+      {/* ADR-015: Engineering Capabilities; canonical hash is #capabilities. */}
+      <section
+        id="capabilities"
+        aria-labelledby="capabilities-title"
+        className="mx-auto w-full max-w-6xl scroll-mt-28 px-5 pb-20 sm:px-8"
       >
-        {copy.title}
-      </h2>
-      <p className="mt-3 max-w-2xl text-base leading-relaxed text-muted">{copy.lead}</p>
+        <p className="font-mono text-xs tracking-[0.22em] text-muted uppercase">{copy.eyebrow}</p>
+        <h2
+          id="capabilities-title"
+          className="mt-3 max-w-3xl text-3xl font-semibold tracking-tight text-foreground sm:text-4xl"
+        >
+          {copy.title}
+        </h2>
+        <p className="mt-3 max-w-2xl text-base leading-relaxed text-muted">{copy.lead}</p>
 
-      <div className="mt-8 border-t border-foreground/10">
-        {copy.capabilities.map((capability) => (
-          <CapabilityRow
-            key={capability.id}
-            locale={locale}
-            name={capability.name}
-            build={capability.build}
-            evidenceLabel={copy.evidenceLabel}
-            projects={resolveCapabilityEvidence(capability.id, projects)}
-            accent={capability.id === CAPABILITY_ID.aiAgentic ? "cyan" : "default"}
-          />
-        ))}
-      </div>
-    </section>
+        <div className="mt-8 border-t border-foreground/10">
+          {copy.capabilities.map((capability) => (
+            <CapabilityRow
+              key={capability.id}
+              locale={locale}
+              name={capability.name}
+              build={capability.build}
+              evidenceLabel={copy.evidenceLabel}
+              projects={resolveCapabilityEvidence(capability.id, projects)}
+              accent={capability.id === CAPABILITY_ID.aiAgentic ? "cyan" : "default"}
+            />
+          ))}
+        </div>
+      </section>
+    </>
   );
 }
 

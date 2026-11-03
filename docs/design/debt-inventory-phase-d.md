@@ -10,9 +10,9 @@ Machine Learning now resolves published MDX via `CAPABILITY_EVIDENCE_SLUGS.ml` â
 
 The public case links to `https://github.com/Atlaros/AutoStory` only. Any private `Autostory_builder` remote and credential hygiene lives outside this repository.
 
-## Phase G cleanup
+## Phase G cleanup â€” **done (2026-11-02)**
 
-Archiving the unused Approach surface and renaming the home `#approach` hash remain open (see portfolio-site Phase G notes).
+Approach/HeroFlow bundles removed; canonical home hash is `#capabilities` with temporary `#approach` compat (see `docs/design/debt-inventory-phase-g.md`).
 
 ## Collaboration attribution
 

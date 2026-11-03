@@ -45,7 +45,7 @@ export function SiteHeader({ locale, current }: SiteHeaderProps) {
             {projectCopy[locale].sectionTitle}
           </Link>
           <Link
-            href={`/${locale}#approach`}
+            href={`/${locale}#capabilities`}
             className={`${focusRing} text-base text-foreground`}
           >
             {capabilitiesCopy[locale].navLabel}

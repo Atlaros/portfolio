@@ -71,12 +71,17 @@ describe("engineering capabilities copy", () => {
 });
 
 describe("engineering capabilities section", () => {
-  it("keeps id=approach and renders a compact editorial list without tabs or auto tech", () => {
+  it("keeps id=capabilities, legacy #approach compat, and a compact editorial list", () => {
     const section = readFileSync("components/capabilities/Capabilities.tsx", "utf8");
     const page = readFileSync("app/[locale]/page.tsx", "utf8");
+    const hero = readFileSync("components/hero/Hero.tsx", "utf8");
+    const header = readFileSync("components/layout/SiteHeader.tsx", "utf8");
     const evidence = readFileSync("lib/capabilities/resolve-evidence.ts", "utf8");
 
+    expect(section).toContain('id="capabilities"');
+    expect(section).toContain('id="capabilities-title"');
     expect(section).toContain('id="approach"');
+    expect(section).toContain("Phase G compat");
     expect(section).toContain("ADR-015");
     expect(section).toContain("resolveCapabilityEvidence");
     expect(section).toContain('href={`/${locale}/projects/${project.slug}`}');
@@ -88,18 +93,24 @@ describe("engineering capabilities section", () => {
     expect(section).not.toContain('"use client"');
     expect(section).not.toContain("pendingEvidenceFor");
     expect(section).not.toContain("padStart");
+    expect(hero).toContain('href="#capabilities"');
+    expect(hero).not.toContain('href="#approach"');
+    expect(header).toContain("#capabilities");
+    expect(header).not.toContain("#approach");
     expect(evidence).toContain("must NOT be inferred by aggregating");
     expect(evidence).not.toContain("function collectProjectTechnologies");
     expect(page).toContain("<Capabilities");
     expect(page).not.toContain("<Approach");
   });
 
-  it("keeps the pending prep module empty for published ML cases and off the UI", () => {
-    const pending = readFileSync("lib/capabilities/pending-evidence.ts", "utf8");
-    expect(pending).toContain("CAPABILITY_EVIDENCE_SLUGS.ml");
-    expect(pending).not.toContain("InventoryIQ");
-    expect(pending).not.toContain("TrustScore");
-    expect(pending).not.toContain("http");
+  it("lists ML evidence slugs in config only, not pending-evidence", () => {
+    expect(CAPABILITY_EVIDENCE_SLUGS[CAPABILITY_ID.ml]).toEqual([
+      "inventoryiq",
+      "trustscore",
+    ]);
+    const section = readFileSync("components/capabilities/Capabilities.tsx", "utf8");
+    expect(section).not.toContain("pendingEvidenceFor");
+    expect(section).not.toContain("pending-evidence");
   });
 });
 
