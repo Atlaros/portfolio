@@ -23,6 +23,13 @@ describe("productStageCopy", () => {
     }
   });
 
+  it("uses the system-how header and honest secondary note", () => {
+    expect(productStageCopy.es.label).toBe("Cómo funciona el sistema");
+    expect(productStageCopy.es.note.toLowerCase()).toContain("no es una ejecución en vivo");
+    expect(productStageCopy.en.label).toBe("How the system works");
+    expect(productStageCopy.pt.label).toBe("Como o sistema funciona");
+  });
+
   it("keeps published facts and drops the mockup's invented figures", () => {
     const joined = Object.values(productStageCopy)
       .map((copy) => JSON.stringify(copy))
@@ -40,12 +47,40 @@ describe("productStageCopy", () => {
     expect(joined).not.toContain("Piloto activo");
   });
 
-  it("connects the published steps and leaves the language model outside the rank", () => {
+  it("models TramitIA as a fork of alternative outcomes", () => {
+    const tramit = productStageCopy.es.scenes[0];
+    const ids = tramit.nodes.map((node) => node.id);
+    expect(ids).toEqual(["consulta", "rag", "control", "disponible", "insuficiente"]);
+    expect(tramit.links).toEqual(
+      expect.arrayContaining([
+        { from: "control", to: "disponible" },
+        { from: "control", to: "insuficiente" },
+      ]),
+    );
+    expect(tramit.links).not.toContainEqual({ from: "disponible", to: "insuficiente" });
+  });
+
+  it("connects AcademIA as a source-to-compare funnel without public-demo claims", () => {
+    const academ = productStageCopy.es.scenes[1];
+    expect(academ.nodes.map((node) => node.id)).toEqual([
+      "fuentes",
+      "normalizacion",
+      "exploracion",
+      "comparacion",
+    ]);
+    expect(academ.links.length).toBeGreaterThanOrEqual(3);
+    expect(JSON.stringify(academ).toLowerCase()).not.toContain("demo pública confirmada");
+    expect(JSON.stringify(academ).toLowerCase()).toContain("no es un agente");
+  });
+
+  it("connects Partner scoring and leaves the language model outside the rank", () => {
     const partner = productStageCopy.es.scenes[2];
-    expect(productStageCopy.es.scenes[0].links.length).toBeGreaterThan(0);
-    expect(productStageCopy.es.scenes[1].links.length).toBeGreaterThanOrEqual(3);
     expect(partner.nodes.some((node) => node.id === "modelo")).toBe(true);
+    expect(partner.nodes.some((node) => node.id === "priorizacion")).toBe(true);
     expect(JSON.stringify(partner.links)).not.toContain("modelo");
+    expect(partner.nodes.find((node) => node.id === "modelo")?.detail.toLowerCase()).toContain(
+      "no determina los puntajes",
+    );
   });
 
   it("gives every node a function and an engineering decision from published facts", () => {
@@ -59,7 +94,7 @@ describe("productStageCopy", () => {
     }
 
     const academ = JSON.stringify(productStageCopy.es.scenes[1]).toLowerCase();
-    expect(academ).not.toContain("rag");
+    expect(academ).not.toMatch(/\brag\b/);
     expect(academ).toContain("no es un agente");
   });
 });
@@ -85,6 +120,7 @@ describe("home composition", () => {
     expect(stage).toContain("<line");
     expect(stage).toContain("aria-pressed");
     expect(stage).toContain("useEntranceEnabled");
+    expect(stage).toContain("OUTCOME_NODES");
     expect(stage).not.toContain("max-w-[34rem]");
     expect(stage).not.toContain("h-80");
     expect(hero).not.toContain("HeroFlow");
