@@ -25,6 +25,15 @@ const PROJECT_MATURITY = {
 
 type ProjectMaturity = (typeof PROJECT_MATURITY)[keyof typeof PROJECT_MATURITY];
 
+const PROJECT_PARTICIPATION = {
+  personal: "personal",
+  collaborative: "collaborative",
+  internship: "internship",
+} as const;
+
+type ProjectParticipation =
+  (typeof PROJECT_PARTICIPATION)[keyof typeof PROJECT_PARTICIPATION];
+
 const PROJECT_MEDIA_TYPE = {
   image: "image",
   video: "video",
@@ -57,7 +66,9 @@ interface Project {
   solution: string;
   approach: string;
   engineeringDecisions?: string[];
+  validation?: string;
   benefits: string[];
+  limitations?: string;
   metrics?: ProjectMetric[];
   categories: ProjectCategory[];
   technologies?: string[];
@@ -71,6 +82,7 @@ interface Project {
   ogImage?: string;
   status: ProjectStatus;
   maturity: ProjectMaturity;
+  participation?: ProjectParticipation;
 }
 
 const requiredText = z.string().trim().min(1);
@@ -118,7 +130,9 @@ const projectSchema = z.object({
   solution: requiredText,
   approach: requiredText,
   engineeringDecisions: textList.optional(),
+  validation: optionalText,
   benefits: textList,
+  limitations: optionalText,
   metrics: z.array(projectMetricSchema).optional(),
   categories: z.array(z.enum(PROJECT_CATEGORY)),
   technologies: textList.optional(),
@@ -132,6 +146,7 @@ const projectSchema = z.object({
   ogImage: optionalText,
   status: z.enum(PROJECT_STATUS),
   maturity: z.enum(PROJECT_MATURITY),
+  participation: z.enum(PROJECT_PARTICIPATION).optional(),
 });
 
 function isPublished(project: Pick<Project, "status">): boolean {
@@ -142,6 +157,7 @@ export {
   PROJECT_CATEGORY,
   PROJECT_MATURITY,
   PROJECT_MEDIA_TYPE,
+  PROJECT_PARTICIPATION,
   PROJECT_STATUS,
   isPublished,
   projectSchema,
@@ -153,5 +169,6 @@ export type {
   ProjectMedia,
   ProjectMediaType,
   ProjectMetric,
+  ProjectParticipation,
   ProjectStatus,
 };

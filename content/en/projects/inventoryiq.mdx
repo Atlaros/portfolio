@@ -1,0 +1,42 @@
+---
+id: inventoryiq
+slug: inventoryiq
+title: InventoryIQ
+tagline: Demand forecasting from transactional inventory data
+summary: An end-to-end pipeline that turns sales history into lag and rolling features, compares forecasting models, and exposes inference through FastAPI.
+problem: Inventory planning needs demand forecasts from transactional history, but raw sales tables are not model-ready and model choice is easy to leave unverified.
+whyItMatters: Without a reproducible ETL and a clear model comparison, forecasts stay opaque and hard to put behind a service boundary.
+solution: An ETL and feature pipeline feeds an XGBoost versus Prophet comparison, with FastAPI inference over the trained path and Streamlit for exploration.
+approach: Features emphasize lag and rolling windows on transactional data. Model comparison stays explicit before serving. Supabase holds working data; Pytest covers the pipeline.
+engineeringDecisions:
+  - Prefer lag and rolling features over ad-hoc aggregates so the training set stays reproducible.
+  - Compare XGBoost against Prophet before choosing the inference path.
+  - Serve predictions through FastAPI instead of embedding the notebook as the product surface.
+benefits:
+  - Turns transactional history into a trainable demand series.
+  - Keeps model comparison visible before inference is exposed.
+categories:
+  - data-science
+technologies:
+  - Python
+  - Pandas
+  - XGBoost
+  - FastAPI
+  - Supabase
+  - Streamlit
+  - Pytest
+featured: false
+order: 10
+repositoryUrl: "https://github.com/Atlaros/InventoryIQ"
+participation: personal
+status: published
+maturity: prototype
+---
+
+## Problem
+
+Inventory planning needs demand forecasts from transactional history, but raw sales tables are not model-ready and model choice is easy to leave unverified.
+
+## Solution
+
+An ETL and feature pipeline feeds an XGBoost versus Prophet comparison, with FastAPI inference over the trained path and Streamlit for exploration.

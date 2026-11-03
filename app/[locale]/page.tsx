@@ -1,10 +1,13 @@
 import { notFound } from "next/navigation";
-import { Approach } from "@/components/approach/Approach";
+import { Capabilities } from "@/components/capabilities/Capabilities";
 import { Hero } from "@/components/hero/Hero";
 import { SiteHeader } from "@/components/layout/SiteHeader";
 import { CopilotPanel } from "@/components/copilot/CopilotPanel";
 import { FeaturedProjects } from "@/components/projects/FeaturedProjects";
 import { CatalogHomeLink } from "@/components/projects/ProjectCatalog";
+import { RelevantProjects } from "@/components/projects/RelevantProjects";
+import { TechnicalTrajectory } from "@/components/projects/TechnicalTrajectory";
+import { ProfileSection } from "@/components/profile/ProfileSection";
 import { isLocale } from "@/lib/i18n/locales";
 import { getPublishedProjects } from "@/lib/projects/repository";
 
@@ -27,7 +30,6 @@ export default async function HomePage({ params }: HomePageProps) {
       <SiteHeader locale={locale} current="home" />
       <main>
         <Hero locale={locale} />
-        <Approach locale={locale} />
         {featured.length > 0 ? (
           <div className="relative">
             <FeaturedProjects locale={locale} projects={featured} />
@@ -44,7 +46,11 @@ export default async function HomePage({ params }: HomePageProps) {
             <CatalogHomeLink locale={locale} />
           </p>
         )}
+        <RelevantProjects locale={locale} projects={projects} />
+        <TechnicalTrajectory locale={locale} />
+        <Capabilities locale={locale} projects={projects} />
         <CopilotPanel locale={locale} projects={projects} />
+        <ProfileSection locale={locale} />
       </main>
     </>
   );

@@ -3,31 +3,37 @@ id: partner-intelligence
 slug: partner-intelligence
 title: Partner Intelligence
 tagline: Prioritize partnerships with criteria and sources, not with a model ranking
-summary: A platform for researching and prioritizing strategic partnerships. Access is by invitation.
-problem: Choosing a partnership without criteria, weights, and traceable sources mixes opinion with evidence.
-whyItMatters: In the No Country fellowship the contribution was defining and validating evaluation criteria, source evidence, weights, and the analytical decision logic.
-solution: The platform scores partner fit and program opportunity separately, and requires an explicit review when the evidence is incomplete.
-approach: The AHP/TOPSIS score is deterministic. Language-model output does not create the numerical rank.
+summary: An invitation-only platform for researching and prioritizing strategic partnerships with traceable evidence.
+problem: Choosing a partnership without shared criteria, weights, and traceable sources mixes opinion with evidence.
+whyItMatters: As a Data & BI Fellowship contribution at No Country, the work focused on defining and validating evaluation criteria, source evidence, weights, and analytical decision logic — not on claiming sole authorship of the whole product.
+solution: An invitation-only research and prioritization platform that scores partner fit and program opportunity separately and requires explicit review when evidence is incomplete.
+approach: Scoring uses deterministic AHP/TOPSIS. The language model does not create numerical ranks. Partner fit and program opportunity are scored as separate dimensions so the recommendation remains explainable from criteria and evidence.
 engineeringDecisions:
-  - The numerical rank comes from AHP/TOPSIS, not from the model output.
-  - Incomplete evidence requires an explicit review and traceable source references.
+  - Incomplete evidence triggers explicit review with traceable source references.
   - Partner fit and program opportunity are scored separately.
+  - Numerical ranks come from deterministic multi-criteria methods, not from LLM output.
+  - Invite-only access is not presented as a public demo.
+validation: Criteria and weights are structured so a decision can be explained from evidence rather than from opaque model scores.
 benefits:
-  - The decision can be explained with criteria and weights.
-  - Invitation access is not presented as a public demo.
+  - Supports partnership prioritization with traceable evidence.
+  - Keeps ranking explainable through criteria and weights.
+  - Frames contribution as fellowship-scoped decision support, not sole product ownership.
+limitations: Access uses a commercial invite login; the UI may have changed since these screenshots. The documented contribution is limited to the fellowship scope.
+participation: internship
 categories:
   - analytics
 featured: true
 order: 3
 liveUrl: "https://partner-intelligence.onrender.com"
+screenshots:
+  - src: /projects/partner-intelligence/programs.webp
+    alt: Partner Intelligence training-programs screen.
+    caption: Programs are reviewed with public evidence. Access is by invitation.
+    type: image
+  - src: /projects/partner-intelligence/organizations.webp
+    alt: Partner Intelligence organizations screen.
+    caption: Organizations are listed apart from program opportunity.
+    type: image
 status: published
 maturity: demo
 ---
-
-## Problem
-
-Choosing a partnership without criteria, weights, and traceable sources mixes opinion with evidence.
-
-## Solution
-
-The platform scores partner fit and program opportunity separately, and requires an explicit review when the evidence is incomplete.

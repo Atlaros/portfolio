@@ -1,0 +1,48 @@
+---
+id: autostory-builder
+slug: autostory-builder
+title: AutoStory Builder
+tagline: Multi-agent B2B content with retrieval, writing, and human approval
+summary: A collaborative platform where a LangGraph pipeline drafts tenant-isolated B2B content and holds publication behind human approval.
+problem: B2B content teams need retrieval, analysis, drafting, and QA in one flow, with tenant isolation and a human gate before anything goes live.
+whyItMatters: Built in a No Country collaborative team setting. The case documents the multi-agent architecture and approval boundary without inventing adoption metrics.
+solution: A LangGraph pipeline runs retrieval, analysis, writing, and QA agents, keeps tenants isolated, and requires human approval before publish.
+approach: FastAPI and Streamlit form the product surface. Cohere and Groq supply model capacity. Supabase and Redis support persistence and coordination. Human approval stays mandatory.
+engineeringDecisions:
+  - Separate retrieval, analysis, writing, and QA as LangGraph stages instead of a single prompt.
+  - Enforce tenant isolation so drafts and sources do not cross accounts.
+  - Require human approval before publication; agents do not auto-publish.
+benefits:
+  - Makes the multi-agent content path inspectable stage by stage.
+  - Keeps a human gate on publication for collaborative B2B use.
+categories:
+  - ai
+technologies:
+  - Python
+  - FastAPI
+  - LangGraph
+  - Cohere
+  - Groq
+  - Supabase
+  - Redis
+  - Streamlit
+featured: false
+order: 12
+repositoryUrl: "https://github.com/Atlaros/AutoStory"
+participation: collaborative
+screenshots:
+  - src: /projects/autostory-builder/interface.webp
+    alt: AutoStory Builder interface for multi-agent B2B content drafts.
+    caption: The collaborative surface for drafting with agent stages and human approval.
+    type: image
+status: published
+maturity: prototype
+---
+
+## Problem
+
+B2B content teams need retrieval, analysis, drafting, and QA in one flow, with tenant isolation and a human gate before anything goes live.
+
+## Solution
+
+A LangGraph pipeline runs retrieval, analysis, writing, and QA agents, keeps tenants isolated, and requires human approval before publish.

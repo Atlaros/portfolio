@@ -1,5 +1,13 @@
 # Changelog de documentación
 
+## 2026-10-31
+
+ADR-014 acepta Dark Engineering Premium. El título queda en blanco sólido, el cyan marca la acción y el azul da profundidad. Sale el degradado violeta → azul → cyan y el violeta deja de ser acento de marca.
+
+- Tokens en `app/globals.css`. Paleta anterior reemplazada.
+- `docs/03-DESIGN-SYSTEM.md`, `AGENTS.md`, `docs/00-PROJECT-STATE.md` y `docs/01-PRD.md` alineados.
+- ADR-008 y ADR-013 siguen vigentes. Geist no cambia.
+
 ## 2026-10-26
 
 ADR-011 pasa de **Propuesto** a **Aceptado**. El sitio usa tres locales: español (`es`), inglés (`en`) y portugués (`pt`), con selector de idioma visible y locale por defecto `es`.

@@ -82,4 +82,22 @@ describe("project schema", () => {
       expect(result.data.liveUrl).toBeUndefined();
     }
   });
+
+  it("accepts optional participation when present", () => {
+    const without = projectSchema.safeParse(publishedProject);
+    const withParticipation = projectSchema.safeParse({
+      ...publishedProject,
+      participation: "personal",
+    });
+
+    expect(without.success).toBe(true);
+    if (without.success) {
+      expect(without.data.participation).toBeUndefined();
+    }
+
+    expect(withParticipation.success).toBe(true);
+    if (withParticipation.success) {
+      expect(withParticipation.data.participation).toBe("personal");
+    }
+  });
 });

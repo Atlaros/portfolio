@@ -1,6 +1,6 @@
 # Design system propuesto — Dark Engineering Premium
 
-**Estado:** propuesta visual aprobada por el usuario, **pendiente de conciliación documental** con `docs/03-DESIGN-SYSTEM.md`, AGENTS/ADRs dentro de Gentle IA/ODD. No reemplaza automáticamente el design system vigente.
+**Estado:** aceptado en ADR-014. `docs/03-DESIGN-SYSTEM.md` y `AGENTS.md` siguen esta dirección. El paquete `cursor-dark-engineering-premium-kit/` conserva el texto original de la entrega.
 **Idea visual:** Interactive Engineering Showcase (portafolio de productos + visualización de ingeniería); no dashboard administrativo ni CV en tarjetas.
 
 ## 1. Atributos de marca
@@ -23,7 +23,7 @@ Ingeniería rigurosa · confianza · capacidad de ejecución · innovación úti
 | `border` | `#334155` | Límites tenues |
 | `success` | revisar tokens/sistema existente | Únicamente estados VERIFICADOS reales |
 
-Estos valores son **candidatos a normativizar mediante ADR**: no pisar los tokens actuales `#080A12`, `#10131D`, `#18E0E0`, `#985CFF` hasta conciliar la decisión de color. Violeta puede persistir en arte histórico, pero no como acento de marca protagonista.
+Estos valores son los tokens vigentes en `app/globals.css` (ADR-014). La paleta anterior (`#080A12`, `#10131D`, `#18E0E0`, `#985CFF`) queda en el historial. El violeta no es acento de marca.
 
 ### Regla cromática 85/10/5 (orientativa)
 
@@ -63,7 +63,7 @@ No es una exigencia matemática, sino control de densidad de color. Nunca hacer 
 
 ## 6. Componentes esenciales
 
-**Header:** marca clara; accesos Proyectos, Ingeniería, Sobre mí y Contacto; switch ES/EN/PT; CTA. Sticky compact, foco visible, mobile menú accesible.
+**Header:** marca clara; accesos Proyectos, Capacidades (`#approach` hasta Phase G), Sobre mí y Contacto; switch ES/EN/PT; CTA. Sticky compact, foco visible, mobile menú accesible.
 
 **Hero editorial:** eyebrow con rol, H1 sólido en blanco, resumen orientado a resultados sin atribuciones falsas, CTA primario a proyectos y secundario a contacto o casos.
 
@@ -73,7 +73,7 @@ No es una exigencia matemática, sino control de densidad de color. Nunca hacer 
 
 **Engineering Explorer:** visual posterior con nodos/conectores interactivos; seleccionar un nodo cambia conexiones enfocadas y panel contextual. Distinto de Product Stage (que es una vista de producto).
 
-**Capability Strip:** 3–4 grandes capacidades con ejemplos de proyectos; no lluvia de logos.
+**Capability Strip (home, ADR-015):** cuatro capacidades (`ai-agentic`, `data`, `fullstack`, `ml`) con tablist accesible, texto de construcción y enlaces a casos publicados; tecnologías solo desde `project.technologies` enlazado; nota honesta si ML no tiene caso MDX.
 
 **Contact:** CTA inequívoco, enlaces reales a GitHub/LinkedIn/email/CV si existen.
 

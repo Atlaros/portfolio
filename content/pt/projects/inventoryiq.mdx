@@ -1,0 +1,42 @@
+---
+id: inventoryiq
+slug: inventoryiq
+title: InventoryIQ
+tagline: Previsão de demanda a partir de dados transacionais de inventário
+summary: Um pipeline de ponta a ponta que transforma o histórico de vendas em features de lag e rolling, compara modelos de previsão e expõe inferência com FastAPI.
+problem: O planejamento de inventário precisa de previsões de demanda a partir do histórico transacional, mas as tabelas de vendas não estão prontas para o modelo e é fácil deixar a escolha do modelo sem verificação.
+whyItMatters: Sem um ETL reproduzível e uma comparação explícita de modelos, a previsão fica opaca e difícil de servir atrás de um limite de serviço.
+solution: Um pipeline de ETL e features alimenta uma comparação XGBoost versus Prophet, com inferência FastAPI sobre a rota treinada e Streamlit para exploração.
+approach: As features priorizam janelas de lag e rolling sobre dados transacionais. A comparação de modelos permanece explícita antes de servir. O Supabase guarda os dados de trabalho; o Pytest cobre o pipeline.
+engineeringDecisions:
+  - Preferir features de lag e rolling a agregados ad hoc para que o conjunto de treino seja reproduzível.
+  - Comparar XGBoost com Prophet antes de escolher a rota de inferência.
+  - Servir previsões com FastAPI em vez de tratar o notebook como superfície de produto.
+benefits:
+  - Transforma o histórico transacional em uma série de demanda treinável.
+  - Mantém visível a comparação de modelos antes de expor a inferência.
+categories:
+  - data-science
+technologies:
+  - Python
+  - Pandas
+  - XGBoost
+  - FastAPI
+  - Supabase
+  - Streamlit
+  - Pytest
+featured: false
+order: 10
+repositoryUrl: "https://github.com/Atlaros/InventoryIQ"
+participation: personal
+status: published
+maturity: prototype
+---
+
+## Problema
+
+O planejamento de inventário precisa de previsões de demanda a partir do histórico transacional, mas as tabelas de vendas não estão prontas para o modelo e é fácil deixar a escolha do modelo sem verificação.
+
+## Solução
+
+Um pipeline de ETL e features alimenta uma comparação XGBoost versus Prophet, com inferência FastAPI sobre a rota treinada e Streamlit para exploração.

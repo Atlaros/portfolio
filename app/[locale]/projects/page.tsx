@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { SiteHeader } from "@/components/layout/SiteHeader";
 import { ProjectCatalog } from "@/components/projects/ProjectCatalog";
@@ -6,7 +7,14 @@ import {
   type Project,
   type ProjectCategory,
 } from "@/domain/project";
+import {
+  SITE_NAME,
+  buildLanguageAlternates,
+  getProjectsListSeoCopy,
+  openGraphLocale,
+} from "@/lib/i18n/seo";
 import { isLocale } from "@/lib/i18n/locales";
+import { getSiteUrl } from "@/lib/seo/site";
 import { filterProjects } from "@/lib/projects/filter-projects";
 import { getPublishedProjects } from "@/lib/projects/repository";
 
@@ -50,6 +58,42 @@ function projectsForArea(published: Project[], area: AreaQuery): Project[] {
 }
 
 export const instant = false;
+
+export async function generateMetadata({
+  params,
+}: Pick<ProjectsPageProps, "params">): Promise<Metadata> {
+  const { locale } = await params;
+
+  if (!isLocale(locale)) {
+    return { title: SITE_NAME };
+  }
+
+  const site = getSiteUrl();
+  const { title, description } = getProjectsListSeoCopy(locale);
+  const canonical = `${site}/${locale}/projects`;
+
+  return {
+    title,
+    description,
+    alternates: {
+      canonical,
+      languages: buildLanguageAlternates("/projects"),
+    },
+    openGraph: {
+      type: "website",
+      locale: openGraphLocale[locale],
+      url: canonical,
+      title,
+      description,
+      siteName: SITE_NAME,
+    },
+    twitter: {
+      card: "summary_large_image",
+      title,
+      description,
+    },
+  };
+}
 
 export default async function ProjectsPage({
   params,

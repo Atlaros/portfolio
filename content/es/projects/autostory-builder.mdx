@@ -1,0 +1,48 @@
+---
+id: autostory-builder
+slug: autostory-builder
+title: AutoStory Builder
+tagline: Contenido B2B multiagente con recuperación, redacción y aprobación humana
+summary: Una plataforma colaborativa donde un pipeline LangGraph redacta contenido B2B con aislamiento por tenant y retiene la publicación tras aprobación humana.
+problem: Los equipos de contenido B2B necesitan recuperación, análisis, redacción y QA en un solo flujo, con aislamiento por tenant y una puerta humana antes de publicar.
+whyItMatters: Construido en un entorno colaborativo de equipo en No Country. El caso documenta la arquitectura multiagente y el límite de aprobación sin inventar métricas de adopción.
+solution: Un pipeline LangGraph ejecuta agentes de recuperación, análisis, redacción y QA, mantiene el aislamiento por tenant y exige aprobación humana antes de publicar.
+approach: FastAPI y Streamlit forman la superficie del producto. Cohere y Groq aportan capacidad de modelo. Supabase y Redis sostienen persistencia y coordinación. La aprobación humana sigue siendo obligatoria.
+engineeringDecisions:
+  - Separar recuperación, análisis, redacción y QA como etapas LangGraph en lugar de un único prompt.
+  - Exigir aislamiento por tenant para que borradores y fuentes no crucen cuentas.
+  - Requerir aprobación humana antes de publicar; los agentes no publican solos.
+benefits:
+  - Hace inspectable el camino de contenido multiagente etapa por etapa.
+  - Mantiene una puerta humana en la publicación para uso B2B colaborativo.
+categories:
+  - ai
+technologies:
+  - Python
+  - FastAPI
+  - LangGraph
+  - Cohere
+  - Groq
+  - Supabase
+  - Redis
+  - Streamlit
+featured: false
+order: 12
+repositoryUrl: "https://github.com/Atlaros/AutoStory"
+participation: collaborative
+screenshots:
+  - src: /projects/autostory-builder/interface.webp
+    alt: Interfaz de AutoStory Builder para borradores B2B multiagente.
+    caption: La superficie colaborativa para redactar con etapas de agentes y aprobación humana.
+    type: image
+status: published
+maturity: prototype
+---
+
+## Problema
+
+Los equipos de contenido B2B necesitan recuperación, análisis, redacción y QA en un solo flujo, con aislamiento por tenant y una puerta humana antes de publicar.
+
+## Solución
+
+Un pipeline LangGraph ejecuta agentes de recuperación, análisis, redacción y QA, mantiene el aislamiento por tenant y exige aprobación humana antes de publicar.

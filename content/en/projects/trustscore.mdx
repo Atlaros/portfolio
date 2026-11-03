@@ -1,0 +1,42 @@
+---
+id: trustscore
+slug: trustscore
+title: TrustScore
+tagline: Credit risk scoring with document validation and human escalation
+summary: A prototype that combines LangGraph document checks with XGBoost risk scoring, and escalates conflicting cases to human review.
+problem: Credit decisions need both a risk score and a check that supporting documents are coherent; treating those steps in isolation leaves conflicts unresolved.
+whyItMatters: The training set uses synthetic Bolivian payslip and document data, so the prototype demonstrates the orchestration pattern honestly rather than claiming production accuracy.
+solution: An LLM validates the document, XGBoost scores credit risk, and the system escalates to human review when the two signals conflict.
+approach: LangGraph orchestrates validation and scoring. SQLite stores working state. FastAPI exposes the flow; Pytest covers critical branches. No production KPIs are claimed on synthetic data.
+engineeringDecisions:
+  - Keep document validation and risk scoring as separate signals so conflicts can escalate.
+  - Use synthetic Bolivian training data and disclose that limit in the case narrative.
+  - Prefer human review over automatic resolution when validation and score disagree.
+benefits:
+  - Makes document-versus-score conflict an explicit path, not a silent fail.
+  - Keeps the prototype scoped to verified architecture without invented accuracy claims.
+categories:
+  - data-science
+  - ai
+technologies:
+  - Python
+  - LangGraph
+  - XGBoost
+  - FastAPI
+  - SQLite
+  - Pytest
+featured: false
+order: 11
+repositoryUrl: "https://github.com/Atlaros/trust_score"
+participation: personal
+status: published
+maturity: prototype
+---
+
+## Problem
+
+Credit decisions need both a risk score and a check that supporting documents are coherent; treating those steps in isolation leaves conflicts unresolved.
+
+## Solution
+
+An LLM validates the document, XGBoost scores credit risk, and the system escalates to human review when the two signals conflict.

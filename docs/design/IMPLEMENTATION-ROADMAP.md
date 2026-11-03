@@ -44,6 +44,8 @@ Prototipar Hero editorial y transición Hero→Proyectos en ruta aislada o rama 
 
 ## Hito 4 — Ingeniería en acción
 
+**Phase C (2026-11-02, ADR-015):** la home monta **Engineering Capabilities** (`components/capabilities/*`) en lugar del listado de cinco pasos. `Approach.tsx` queda sin uso hasta Phase G. El explorador de arquitectura sigue pendiente.
+
 - Sustituir presentación redundante de `components/approach/Approach.tsx` (tabs+textos) por explorador de arquitectura con nodos/etapas y contexto verificado.
 - Hero = escaparate de producto; aquí = cómo funciona. Evitar explicar exactamente el mismo pipeline en ambos.
 - Reusar `components/rag/RagDemo.tsx` solo si tiene valor; cualquier simulación etiquetada.
@@ -81,12 +83,12 @@ La aprobación de diseño no sustituye consentimiento sobre cambios de arquitect
 ## Checklist global de aceptación
 
 - [ ] Diseño distinto al portafolio anterior, no solo recolor.
-- [ ] H1 blanco, cyan selectivo, sin título gradiente violeta-azul.
+- [x] H1 blanco, cyan selectivo, sin título gradiente violeta-azul. ADR-014. El escenario de producto sigue pendiente.
 - [ ] Product Stage interactivo, cambia visual con selector.
 - [ ] TramitIA, AcademIA y Partner Intelligence usan información confirmada.
 - [ ] Imágenes de proyecto reales / placeholders explícitos.
 - [ ] Transición Hero→proyectos útil y no intrusiva.
-- [ ] «Ingeniería en acción» sin duplicar el Hero.
+- [x] Capacidades de ingeniería en home sin duplicar el patrón de cinco pasos (ADR-015). Explorador de arquitectura opcional aún abierto.
 - [ ] Buen móvil, teclado, foco, reduced motion.
 - [ ] ES/EN/PT íntegros.
 - [ ] Sin LLM simulado como producción, ni métricas inventadas.

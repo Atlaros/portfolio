@@ -37,10 +37,7 @@ export function CaseStudy({ locale, project }: CaseStudyProps) {
 
   return (
     <article className="mx-auto w-full max-w-6xl px-5 pt-12 pb-24 sm:px-8 sm:pt-16">
-      <Link
-        href={`/${locale}`}
-        className={`text-sm text-cyan ${focusRing}`}
-      >
+      <Link href={`/${locale}`} className={`text-sm text-cyan ${focusRing}`}>
         {copy.backHome}
       </Link>
       <p className="mt-8 font-mono text-xs tracking-[0.18em] text-cyan uppercase">
@@ -83,6 +80,14 @@ export function CaseStudy({ locale, project }: CaseStudyProps) {
             </ul>
           </section>
         ) : null}
+        {project.validation ? (
+          <section>
+            <h2 className="text-xl font-medium tracking-tight text-foreground">
+              {copy.validation}
+            </h2>
+            <p className="mt-3 leading-relaxed text-muted">{project.validation}</p>
+          </section>
+        ) : null}
         <section>
           <h2 className="text-xl font-medium tracking-tight text-foreground">
             {copy.benefits}
@@ -95,6 +100,14 @@ export function CaseStudy({ locale, project }: CaseStudyProps) {
             ))}
           </ul>
         </section>
+        {project.limitations ? (
+          <section>
+            <h2 className="text-xl font-medium tracking-tight text-foreground">
+              {copy.limitations}
+            </h2>
+            <p className="mt-3 leading-relaxed text-muted">{project.limitations}</p>
+          </section>
+        ) : null}
         {technologies.length > 0 ? (
           <section>
             <h2 className="text-xl font-medium tracking-tight text-foreground">

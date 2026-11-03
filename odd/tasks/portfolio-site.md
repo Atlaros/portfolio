@@ -139,13 +139,97 @@ ADR-011 is accepted (`es`, `en`, `pt`, default `es`). The implementation plan sa
   - Browser: typing “el modelo arma el ranking” and pressing Preguntar cites Partner Intelligence, maturity Demo, and the published AHP/TOPSIS sentence. “¿Qué proyectos puedo probar?” returns TramitIA and Partner Intelligence and leaves AcademIA out.
   - Commit: skipped. The folder is not a git repository.
 
+- [x] `TASK-031` Refine Iteration A hero until the stage is premium, responsive, and explorable. Route: direct. Iteration B stays closed.
+  - 1440px keeps two columns (`minmax(0,0.9fr)` / `minmax(0,1.1fr)` from 1280px). 1024px, 768px, and 390px stack the stage under the headline. Nodes sit in normal flow, so they no longer overlap.
+  - TramitIA is a vertical retrieval spine. AcademIA is a search fan into three catalog lanes. Partner Intelligence feeds criteria and weights into AHP/TOPSIS and leaves the model below an unlinked cut.
+  - Nodes are buttons. Pointer, arrow keys, and a phone-width tap swap the selected node and the detail dock without a reload. Copy stays the published facts. Reduced motion drops the dash animation.
+  - Do not restyle featured projects, approach, header, or contact.
+  - RED: not re-run as a separate failing commit. The existing composition test was updated for the 1280px grid before the layout rewrite, and `npm test` stayed green (10 files, 45 tests).
+  - GREEN: `npm test` 45 passed. `npx tsc --noEmit` passed. `npx eslint` on the hero files passed. `npm run build` passed.
+  - Browser at `/es?hero=a5`: no horizontal overflow and no node overlap at 1440, 1024, 768, and 390. At 1024 the headline ends before the stage starts.
+  - No work-unit commit: the user did not ask to commit.
+
+- [x] `TASK-032` Final composition pass on the approved hero. Route: inline. Not a ProductStage rewrite. Iteration B stays closed.
+  - Desktop uses `xl` (1280px): `0.78fr` / `1.22fr`, top-aligned. The graph is the wider column. The detail dock is a cyan rail with the function and the decision, and does not repeat the node label.
+  - `min-[1280px]:` was losing to `sm:` in the generated CSS, so the desktop rules use `xl:`.
+  - Mobile padding and graph gaps are tighter. TramitIA at 390px went from 1452px to 1141px tall.
+  - Do not restyle featured projects, approach, profile, or contact.
+  - RED: `tests/product-stage.test.ts` failed on the old `0.9fr` grid.
+  - GREEN: `npm test` 45 passed. `tsc --noEmit` passed. eslint on the hero files passed. `npm run build` exit 0.
+  - Browser: no node overlap and no horizontal overflow at 1440, 1024, 768, and 390 for the three projects. Selecting Fichas publicadas updates the live region. Reduced motion sets the flow dash to `none`.
+  - No commit.
+
+- [x] `TASK-033` Iteration B showcases with the supplied captures. Route: inline. Hero stays untouched. No commit.
+  - TramitIA: editorial plus one large capture and three states.
+  - AcademIA: overlapping screens, one capture at a time below 1280px. No public URL.
+  - Partner Intelligence: programs and organizations, explanatory AHP flow, internship label, invitation link.
+  - Originals stay in `docs/design/review/iteration-b/incoming/`. Optimized files go to `public/projects/`.
+
+- [x] `TASK-034` Phase C — Capacidades de ingeniería replace Ingeniería en acción. Route: delegated. Hero and showcases untouched. No commit.
+  - Shipped `components/capabilities/Capabilities.tsx` + `CapabilitiesExplorer.tsx`, `lib/i18n/capabilities.ts`, `lib/capabilities/*`.
+  - Four capabilities; evidence slugs `tramit-ia`, `academ-ia`, `partner-intelligence`; ML empty note.
+  - `id="approach"` preserved; header nav + `homeCopy.secondaryCta` point to capabilities.
+  - `Approach.tsx` / `lib/i18n/approach.ts` unused on home; tests in `tests/capabilities-section.test.ts`.
+  - ADR-015; debt inventory `docs/design/review/iteration-c/debt-inventory.md`.
+  - Verification: `npm run lint`, `npm run typecheck`, `npm test`, `npm run build` (record results in session handoff).
+
+- [x] `TASK-035` Phase C2 — editorial capabilities matrix replaces the vertical tablist. Route: inline. Hero and showcases untouched. No commit.
+  - All four capabilities visible at once; no 01–04, tabs, or hidden panels.
+  - Evidence links only for published MDX cases; ML stays sober without Phase D / pending UI copy.
+  - RSC only; deleted `CapabilitiesExplorer.tsx`. `pending-evidence.ts` kept for Phase D prep, not rendered publicly.
+  - Verification: lint, typecheck, 50 tests, build OK. Captures in `docs/design/review/iteration-c2/`.
+
+- [x] `TASK-036` Phase C2 refine — compact editorial capabilities after review rejection. Route: inline. Hero and showcases untouched. No commit.
+  - Four equal-density rows; name links only; no auto tech aggregation; truthful lead; natural ES/EN/PT.
+  - Section height ~1186→835 px at 1440 (~30%); 390 ~1903→1055.
+  - Captures: `docs/design/review/iteration-c2/before|after/`.
+  - Checks: lint, typecheck, 50 tests, build OK. No commit.
+
+- [x] `TASK-037` Phase D — three-tier projects. Route: delegated. Hero, showcases, Capabilities untouched. No commit.
+  - Optional `participation` on project schema; MDX for inventoryiq, trustscore, autostory-builder (`featured: false`).
+  - Home order: Featured → RelevantProjects → TechnicalTrajectory → Capabilities → Copilot.
+  - Trajectory data: AuditorIA, Talentify, Quipu AI, Feedback Classifier + Atlaros profile CTA.
+  - Debt: `docs/design/debt-inventory-phase-d.md`. Task file: `odd/tasks/phase-d-project-tiers.md`.
+
+- [x] `TASK-038` Phase E — About, experience, and contact. Route: inline. Hero/showcases/Capabilities/Phase D untouched. No commit until review.
+  - `ProfileSection` after Capabilities; header `#about` / `#contact`.
+  - Verified mailto, GitHub, LinkedIn, CV PDF; experience modes own / collaborative / internship.
+  - Debt: `docs/design/debt-inventory-phase-e.md`.
+
 ## Next step
 
-`TASK-027` is the next product increment. `TASK-008` remaining (about, experience, and contact) still needs a photo and real roles. The LLM provider in ADR-006 is still unchosen.
+Phase G debt cleanup (archive Approach, rename `#approach` hash; profile MDX loader).
 
-- [ ] `TASK-027` Dark Engineering Premium, milestone 0 imported. Route: direct. UI not started.
-  - The user added `cursor-dark-engineering-premium-kit` and asked to put it in the repo. Canonical copies live in `docs/design/` and `.cursor/skills/portfolio-interactivo/SKILL.md`. `docs/03-DESIGN-SYSTEM.md`, AGENTS.md, and existing ADRs were not replaced.
-  - The installed skill keeps the role `AI & Agentic Systems Engineer`.
-  - Approved direction: white H1, cyan accent, blue depth, no rainbow headline. Product stage replaces the hero tab list. Featured projects stop sharing one card shape. Approach becomes Ingeniería en acción later, without duplicating the hero.
-  - Gate before any production UI edit: an isolated hero prototype, then a visual check. Do not copy figures from `docs/design/reference/hero-dark-engineering-premium.png`.
+- [x] `TASK-028` Align the visual rules with Dark Engineering Premium. Route: direct.
+  - The user asked to resolve the clash because the kit is a redesign. ADR-014 accepts the new palette and a solid white headline. ADR-008 and ADR-013 stay.
+  - `app/globals.css` drops `#985CFF` and `.hero-highlight`. `components/hero/Hero.tsx` renders both headline lines in the foreground color.
+  - RED: `tests/design-direction.test.ts` failed because `globals.css` still had `#080A12` and `.hero-highlight`.
+  - GREEN: `npm test` passed, 8 files, 37 tests. A clean `next build` emits `#0b101b`, `#121a28`, and `#18d4d8`, and does not emit `#985cff` or `hero-highlight`. Browser at `/es?dir=premium2`: body background `rgb(11, 16, 27)`, both headline lines `rgb(245, 247, 250)` with no background image.
+  - The product stage, the unequal project layout, and Ingeniería en acción are not part of this task.
+
+- [x] `TASK-030` Refine the immersive hero. Route: direct. Iteration B stays closed.
+  - Stack the stage under the headline until 1180px so 1024px and 768px cannot overlap. The stage stays at most 34rem until the two-column layout, so the schematic does not stretch into an empty grid.
+  - Nodes are buttons with a detail panel. Copy comes from the published project facts. AcademIA stays local and is not an agent. Partner's model stays unlinked.
+  - Do not restyle featured projects, approach, header, or contact.
+  - RED: `tests/product-stage.test.ts` failed on missing node detail and on `lg:flex-row`.
+  - GREEN: `npm test` passed, 10 files, 45 tests. `npx eslint` on the hero files passed. `npx next build` passed, including TypeScript.
+  - Browser at `/es?hero=a4`: no overlap and no horizontal overflow at 1440, 1024, 768, and 390. Mouse selects Pesos. ArrowRight moves Consulta to Fichas publicadas. A touch selects Carreras. Reduced motion keeps the headline and the panel at opacity 1.
+  - No work-unit commit: the user did not ask to commit.
+
+- [x] `TASK-029` Iteration A, immersive hero graph. Route: direct.
+  - Diagnosis: the live page no longer has the old Enfoque tab tour. `Approach.tsx` is a numbered list titled Ingeniería en acción. The hero stage was still a stack of word boxes.
+  - The stage now draws SVG links between nodes. Partner's Modelo node has no link. AcademIA stays local and is not an agent.
+  - RED: `tests/product-stage.test.ts` failed because the stage had no `<line` and no `links`.
+  - GREEN: `npm test` passed, 10 files, 44 tests. `npx tsc --noEmit` passed. `npx eslint` on the stage passed before the tab wrap. `next build` passed twice, including after the wrap.
+  - Browser: `/es?hero=a2`. Partner scene shows two cyan links into AHP/TOPSIS and a dashed Modelo. At 1440px the page does not overflow. At 390px the three project buttons wrap and the page does not overflow.
+  - Not in this iteration: real project previews, the interactive engineering explorer, capabilities, about, and contact.
+
+- [x] `TASK-027` Dark Engineering Premium product stage on the home page. Route: direct.
+  - RED: `tests/product-stage.test.ts` could not load `lib/i18n/product-stage`.
+  - GREEN: `npm test` passed, 9 files, 41 tests. `npm run lint` passed. `npx tsc --noEmit` passed. Clean `next build` passed.
+  - Browser: `/es?stage=1` shows the new headline, Ver proyectos, and the TramitIA pipeline. Choosing AcademIA replaces that scene with Cursos / Carreras / Posgrados, “Corre en local. No es un agente.” and “Sin demo pública”.
+  - Still open from the kit: header links for Sobre mí and Contacto, the Ingeniería en acción explorer, and real screenshots. The mockup figures were not copied.
+  - The kit lives in `docs/design/` and `.cursor/skills/portfolio-interactivo/SKILL.md`. The role stays `AI & Agentic Systems Engineer`.
+  - Product stage replaces the hero tab list. Featured projects stop sharing one card shape. Approach becomes Ingeniería en acción later, without duplicating the hero.
+  - Do not copy figures from `docs/design/reference/hero-dark-engineering-premium.png`.
   - Missing assets: real screenshots for TramitIA, AcademIA, and Partner Intelligence. `public/projects/` has no captures.

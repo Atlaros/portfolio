@@ -3,31 +3,37 @@ id: partner-intelligence
 slug: partner-intelligence
 title: Partner Intelligence
 tagline: Priorizar parcerias com critérios e fontes, não com um ranking do modelo
-summary: Plataforma para pesquisar e priorizar parcerias estratégicas. O acesso é por convite.
-problem: Escolher uma parceria sem critérios, pesos e fontes rastreáveis mistura opinião com evidência.
-whyItMatters: No fellowship da No Country a contribuição foi definir e validar critérios de avaliação, evidência de fonte, pesos e a lógica analítica da decisão.
-solution: A plataforma separa o encaixe do parceiro e a oportunidade do programa, e pede revisão explícita quando a evidência está incompleta.
-approach: A pontuação AHP/TOPSIS é determinística. A saída do modelo de linguagem não cria o ranking numérico.
+summary: Plataforma apenas por convite para pesquisar e priorizar parcerias estratégicas com evidência rastreável.
+problem: Escolher uma parceria sem critérios compartilhados, pesos e fontes rastreáveis mistura opinião com evidência.
+whyItMatters: Como contribuição do Data & BI Fellowship na No Country, o trabalho focou em definir e validar critérios de avaliação, evidência de fonte, pesos e lógica analítica de decisão — sem reivindicar a autoria completa do produto.
+solution: Uma plataforma de pesquisa e priorização apenas por convite que pontua separadamente o encaixe do parceiro e a oportunidade do programa, e exige revisão explícita quando a evidência está incompleta.
+approach: A pontuação usa AHP/TOPSIS determinístico. O modelo de linguagem não cria rankings numéricos. O encaixe do parceiro e a oportunidade do programa são avaliados como dimensões separadas para que a recomendação se explique a partir de critérios e evidência.
 engineeringDecisions:
-  - O ranking numérico sai de AHP/TOPSIS, não da saída do modelo.
-  - A evidência incompleta exige revisão explícita e referências de fonte rastreáveis.
+  - Evidência incompleta dispara revisão explícita com referências de fonte rastreáveis.
   - O encaixe do parceiro e a oportunidade do programa são pontuados separadamente.
+  - Rankings numéricos vêm de métodos multicritério determinísticos, não da saída do LLM.
+  - O acesso apenas por convite não é apresentado como um demo público.
+validation: Critérios e pesos estão estruturados para que uma decisão se explique a partir de evidência, não de pontuações opacas do modelo.
 benefits:
-  - A decisão se explica com critérios e pesos.
-  - O acesso por convite não é apresentado como um demo público.
+  - Apoia a priorização de parcerias com evidência rastreável.
+  - Mantém o ranking explicável por meio de critérios e pesos.
+  - Enquadra a contribuição como suporte à decisão do fellowship, não como autoria exclusiva do produto.
+limitations: O acesso usa um login comercial por convite; a interface pode ter mudado desde estas capturas. A contribuição documentada se limita ao escopo do fellowship.
+participation: internship
 categories:
   - analytics
 featured: true
 order: 3
 liveUrl: "https://partner-intelligence.onrender.com"
+screenshots:
+  - src: /projects/partner-intelligence/programs.webp
+    alt: Tela de programas de formação do Partner Intelligence.
+    caption: Os programas são revisados com evidência pública. O acesso é por convite.
+    type: image
+  - src: /projects/partner-intelligence/organizations.webp
+    alt: Tela de organizações do Partner Intelligence.
+    caption: As organizações são listadas à parte da oportunidade do programa.
+    type: image
 status: published
 maturity: demo
 ---
-
-## Problema
-
-Escolher uma parceria sem critérios, pesos e fontes rastreáveis mistura opinião com evidência.
-
-## Solução
-
-A plataforma separa o encaixe do parceiro e a oportunidade do programa, e pede revisão explícita quando a evidência está incompleta.

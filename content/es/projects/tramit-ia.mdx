@@ -3,17 +3,23 @@ id: tramit-ia
 slug: tramit-ia
 title: TramitIA
 tagline: Orientación de trámites de Santa Cruz de la Sierra
-summary: Piloto público que responde con fichas publicadas. Si un trámite no está en el catálogo, lo dice y busca en internet. No es un sitio de la Alcaldía.
-problem: La información de trámites del municipio y sus subalcaldías no está reunida en una orientación que la persona pueda consultar.
-whyItMatters: Es un piloto público independiente, desplegado en AWS, para orientarse sin tratar el sitio como si fuera la Alcaldía.
-solution: Una web que responde con las fichas publicadas del catálogo.
-approach: Si el trámite no está en el catálogo, el sistema lo dice y busca en internet. La comprobación presencial sigue en el trabajo editorial.
+summary: Piloto público que responde con fichas municipales publicadas. Si un trámite no está en el catálogo, lo dice y puede buscar en internet. No es un sitio de la Alcaldía.
+problem: La información de trámites municipales en Santa Cruz de la Sierra está dispersa y es difícil de reunir en una orientación clara sin inventar requisitos.
+whyItMatters: Las personas necesitan orientarse con bases consultables sin tratar un piloto independiente como canal oficial de la Alcaldía.
+solution: Un asistente RAG sobre fichas de trámites publicadas, con interfaz Next.js y backend FastAPI/LangGraph respaldado por PostgreSQL y pgvector.
+approach: La recuperación se ancla a fichas publicadas del catálogo. Cuando un trámite no está, el sistema lo indica de forma explícita y puede recurrir a una búsqueda web solo como orientación. La revisión editorial y la verificación presencial quedan fuera del modelo y no se presentan como garantías automatizadas.
 engineeringDecisions:
-  - El stack documentado es Next.js y TypeScript, Python y FastAPI, LangGraph, PostgreSQL y pgvector.
-  - Las fichas publicadas son el dato que se responde.
+  - Las respuestas se anclan a fichas publicadas en lugar de especular requisitos.
+  - La ausencia en el catálogo produce una negativa explícita en lugar de inventar pasos.
+  - Controles de relevancia y de fuente condicionan lo que se presenta como grounded en el catálogo.
+  - El piloto público se enmarca como orientación independiente, no como el sitio de la Alcaldía.
+validation: Ejercicios focalizados de recuperación y de comprobación de fuentes descritos en los materiales del portafolio confirman que las respuestas se mantienen atadas a las fichas publicadas y que los vacíos se reconocen; no se afirma un porcentaje de exactitud.
 benefits:
-  - Orienta sobre trámites del municipio de Santa Cruz de la Sierra y sus subalcaldías.
-  - Distingue el piloto de un sitio oficial de la Alcaldía.
+  - Ofrece orientación pública sobre trámites municipales de Santa Cruz de la Sierra a partir de un catálogo publicado.
+  - Separa las respuestas grounded en el catálogo de un fallback opcional a internet.
+  - Mantiene el piloto claramente distinto de los canales oficiales de la Alcaldía.
+limitations: El alcance es de piloto; la disponibilidad puede variar. El sitio no es oficial de la Alcaldía. El fallback a internet es solo orientación y no es fuente de verdad municipal.
+participation: personal
 categories:
   - ai
 technologies:
@@ -24,21 +30,24 @@ technologies:
   - LangGraph
   - PostgreSQL
   - pgvector
+  - AWS
+  - Docker
 featured: true
 order: 1
 liveUrl: "https://tramitia-bolivia.mywire.org"
+screenshots:
+  - src: /projects/tramitia/welcome.webp
+    alt: Pantalla de inicio de TramitIA, con el saludo y el campo para describir un trámite.
+    caption: El piloto pide qué se necesita. No es el sitio de la Alcaldía.
+    type: image
+  - src: /projects/tramitia/queries.webp
+    alt: Consultas frecuentes, búsqueda por nombre y temas de TramitIA.
+    caption: La consulta se apoya en fichas municipales publicadas.
+    type: image
+  - src: /projects/tramitia/recovered-card.webp
+    alt: Conversación de TramitIA con una ficha recuperada de empadronamiento.
+    caption: Si el dato no está en la ficha, la respuesta lo dice.
+    type: image
 status: published
 maturity: demo
 ---
-
-## Problema
-
-La información de trámites del municipio y sus subalcaldías no está reunida en una orientación que la persona pueda consultar.
-
-## Solución
-
-Una web que responde con las fichas publicadas del catálogo.
-
-## Enfoque
-
-Si el trámite no está en el catálogo, el sistema lo dice y busca en internet. La comprobación presencial sigue en el trabajo editorial.

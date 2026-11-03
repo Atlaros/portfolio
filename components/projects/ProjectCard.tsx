@@ -78,7 +78,11 @@ export function ProjectCard({
   const titleClass = "mt-4 text-xl font-medium tracking-tight text-foreground";
 
   return (
-    <article className="flex h-full flex-col border border-foreground/10 bg-surface p-6">
+    <article
+      className={`flex h-full flex-col border border-foreground/10 p-6 ${
+        wide ? "bg-surface-raised" : "bg-surface"
+      }`}
+    >
       <div
         className={
           wide
