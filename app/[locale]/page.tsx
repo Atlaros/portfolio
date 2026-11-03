@@ -7,6 +7,7 @@ import { FeaturedProjects } from "@/components/projects/FeaturedProjects";
 import { CatalogHomeLink } from "@/components/projects/ProjectCatalog";
 import { RelevantProjects } from "@/components/projects/RelevantProjects";
 import { TechnicalTrajectory } from "@/components/projects/TechnicalTrajectory";
+import { ProfileSection } from "@/components/profile/ProfileSection";
 import { isLocale } from "@/lib/i18n/locales";
 import { getPublishedProjects } from "@/lib/projects/repository";
 
@@ -49,6 +50,7 @@ export default async function HomePage({ params }: HomePageProps) {
         <TechnicalTrajectory locale={locale} />
         <Capabilities locale={locale} projects={projects} />
         <CopilotPanel locale={locale} projects={projects} />
+        <ProfileSection locale={locale} />
       </main>
     </>
   );

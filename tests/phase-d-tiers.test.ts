@@ -108,19 +108,21 @@ describe("phase D project tiers", () => {
     expect(trajectoryCopy.en.githubProfileUrl).toBe("https://github.com/Atlaros");
   });
 
-  it("wires home order Featured → Relevant → Trajectory → Capabilities → Copilot", () => {
+  it("wires home order Featured → Relevant → Trajectory → Capabilities → Copilot → Profile", () => {
     const page = readFileSync("app/[locale]/page.tsx", "utf8");
     const featuredAt = page.indexOf("<FeaturedProjects");
     const relevantAt = page.indexOf("<RelevantProjects");
     const trajectoryAt = page.indexOf("<TechnicalTrajectory");
     const capabilitiesAt = page.indexOf("<Capabilities");
     const copilotAt = page.indexOf("<CopilotPanel");
+    const profileAt = page.indexOf("<ProfileSection");
 
     expect(featuredAt).toBeGreaterThan(-1);
     expect(relevantAt).toBeGreaterThan(featuredAt);
     expect(trajectoryAt).toBeGreaterThan(relevantAt);
     expect(capabilitiesAt).toBeGreaterThan(trajectoryAt);
     expect(copilotAt).toBeGreaterThan(capabilitiesAt);
+    expect(profileAt).toBeGreaterThan(copilotAt);
     expect(page).not.toContain("FeaturedProjects.tsx");
   });
 });

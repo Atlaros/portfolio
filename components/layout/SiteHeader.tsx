@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { capabilitiesCopy } from "@/lib/i18n/capabilities";
+import { profileCopy } from "@/lib/i18n/profile";
 import { projectCopy } from "@/lib/i18n/projects";
 import type { Locale } from "@/lib/i18n/locales";
 import { LocaleSwitcher } from "./LocaleSwitcher";
@@ -48,6 +49,18 @@ export function SiteHeader({ locale, current }: SiteHeaderProps) {
             className={`${focusRing} text-base text-foreground`}
           >
             {capabilitiesCopy[locale].navLabel}
+          </Link>
+          <Link
+            href={`/${locale}#about`}
+            className={`${focusRing} text-base text-foreground`}
+          >
+            {profileCopy[locale].navAbout}
+          </Link>
+          <Link
+            href={`/${locale}#contact`}
+            className={`${focusRing} text-base text-foreground`}
+          >
+            {profileCopy[locale].navContact}
           </Link>
         </div>
         <LocaleSwitcher locale={locale} />

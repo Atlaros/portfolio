@@ -191,9 +191,14 @@ ADR-011 is accepted (`es`, `en`, `pt`, default `es`). The implementation plan sa
   - Trajectory data: AuditorIA, Talentify, Quipu AI, Feedback Classifier + Atlaros profile CTA.
   - Debt: `docs/design/debt-inventory-phase-d.md`. Task file: `odd/tasks/phase-d-project-tiers.md`.
 
+- [x] `TASK-038` Phase E — About, experience, and contact. Route: inline. Hero/showcases/Capabilities/Phase D untouched. No commit until review.
+  - `ProfileSection` after Capabilities; header `#about` / `#contact`.
+  - Verified mailto, GitHub, LinkedIn, CV PDF; experience modes own / collaborative / internship.
+  - Debt: `docs/design/debt-inventory-phase-e.md`.
+
 ## Next step
 
-Phase G debt cleanup (archive Approach, rename `#approach` hash). About/experience/contact still open (`TASK-008`).
+Phase G debt cleanup (archive Approach, rename `#approach` hash; profile MDX loader).
 
 - [x] `TASK-028` Align the visual rules with Dark Engineering Premium. Route: direct.
   - The user asked to resolve the clash because the kit is a redesign. ADR-014 accepts the new palette and a solid white headline. ADR-008 and ADR-013 stay.
