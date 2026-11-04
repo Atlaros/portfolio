@@ -46,6 +46,7 @@ interface ProductStageCopy {
   note: string;
   nodesLabel: string;
   architectureLabel: string;
+  stagePanelLabel: string;
   happensLabel: string;
   whyLabel: string;
   techLabel: string;
@@ -63,6 +64,7 @@ const productStageCopy = {
     note: "Diagramas interactivos basados en la arquitectura documentada. No procesan datos en vivo.",
     nodesLabel: "Etapas del recorrido",
     architectureLabel: "Arquitectura documentada",
+    stagePanelLabel: "Etapa seleccionada",
     happensLabel: "Qué sucede",
     whyLabel: "Por qué existe",
     techLabel: "En esta etapa",
@@ -230,6 +232,7 @@ const productStageCopy = {
     note: "Interactive diagrams based on the documented architecture. They do not process live data.",
     nodesLabel: "Journey stages",
     architectureLabel: "Documented architecture",
+    stagePanelLabel: "Selected stage",
     happensLabel: "What happens",
     whyLabel: "Why it exists",
     techLabel: "At this stage",
@@ -397,6 +400,7 @@ const productStageCopy = {
     note: "Diagramas interativos baseados na arquitetura documentada. Não processam dados ao vivo.",
     nodesLabel: "Etapas do percurso",
     architectureLabel: "Arquitetura documentada",
+    stagePanelLabel: "Etapa selecionada",
     happensLabel: "O que acontece",
     whyLabel: "Por que existe",
     techLabel: "Nesta etapa",
