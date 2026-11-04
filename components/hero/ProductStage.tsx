@@ -30,9 +30,18 @@ const QUIET_FLOW_SECONDS = 5.2;
 const focusRing =
   "rounded-sm outline-none focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-cyan";
 
-const CORE_NODES = new Set(["rag", "control", "normalizacion", "exploracion", "ahp", "criterios"]);
+const CORE_NODES = new Set([
+  "rag",
+  "control",
+  "normalizacion",
+  "catalogo",
+  "exploracion",
+  "ahp",
+  "criterios",
+]);
 const OUTCOME_NODES = new Set(["disponible", "comparacion", "priorizacion"]);
-const LIMIT_NODES = new Set(["insuficiente", "modelo"]);
+const LIMIT_NODES = new Set(["insuficiente", "modelo", "web"]);
+const ASIDE_NODES = new Set(["modelo", "web"]);
 
 interface Point {
   x: number;
@@ -90,10 +99,15 @@ export function ProductStage({ locale, projects }: ProductStageProps) {
         aria-hidden
         className="pointer-events-none absolute inset-x-0 -inset-y-6 -z-10 bg-[radial-gradient(circle_at_center,rgb(24_212_216/0.14),transparent_68%)]"
       />
-      <p id={labelId} className="font-mono text-xs tracking-[0.22em] text-muted uppercase">
-        {copy.label}
+      <p id={labelId} className="font-mono text-[0.65rem] tracking-[0.22em] text-cyan uppercase sm:text-xs">
+        {copy.eyebrow}
       </p>
-      <p className="mt-1.5 max-w-md text-sm leading-snug text-muted">{copy.note}</p>
+      <h2 className="mt-1.5 text-lg leading-snug font-semibold text-balance text-foreground sm:text-xl">
+        {copy.title}
+      </h2>
+      <p className="mt-1.5 max-w-xl text-sm leading-snug text-muted sm:mt-2">{copy.description}</p>
+      <p className="mt-2 text-sm font-medium text-foreground/90">{copy.instruction}</p>
+      <p className="mt-1 max-w-xl text-xs leading-snug text-muted/90">{copy.note}</p>
       <div
         role="tablist"
         aria-labelledby={labelId}
@@ -117,7 +131,7 @@ export function ProductStage({ locale, projects }: ProductStageProps) {
               aria-controls={panelId}
               tabIndex={selected ? 0 : -1}
               onClick={() => selectScene(sceneIndex)}
-              className={`${focusRing} min-h-11 cursor-pointer border px-4 text-sm font-medium ${
+              className={`${focusRing} min-h-11 cursor-pointer border px-3 text-sm font-medium sm:px-4 ${
                 selected
                   ? "border-cyan bg-cyan text-background"
                   : "border-foreground/15 bg-surface text-foreground"
@@ -136,7 +150,10 @@ export function ProductStage({ locale, projects }: ProductStageProps) {
         scene={scene}
         roles={roles}
         nodesLabel={copy.nodesLabel}
-        decisionLabel={copy.decisionLabel}
+        architectureLabel={copy.architectureLabel}
+        happensLabel={copy.happensLabel}
+        whyLabel={copy.whyLabel}
+        techLabel={copy.techLabel}
         boundaryLabel={copy.boundaryLabel}
         nodeIndex={nodeIndex}
         onSelectNode={setNodeIndex}
@@ -160,7 +177,10 @@ function ScenePanel({
   scene,
   roles,
   nodesLabel,
-  decisionLabel,
+  architectureLabel,
+  happensLabel,
+  whyLabel,
+  techLabel,
   boundaryLabel,
   nodeIndex,
   onSelectNode,
@@ -179,7 +199,10 @@ function ScenePanel({
   scene: SceneCopy;
   roles: Record<string, string>;
   nodesLabel: string;
-  decisionLabel: string;
+  architectureLabel: string;
+  happensLabel: string;
+  whyLabel: string;
+  techLabel: string;
   boundaryLabel: string;
   nodeIndex: number;
   onSelectNode: (index: number) => void;
@@ -195,20 +218,21 @@ function ScenePanel({
     <div className="relative">
       <div
         aria-hidden
-        className="absolute top-4 right-0 -bottom-3 left-7 rounded-2xl border border-blue/30 bg-blue/10"
+        className="absolute top-3 right-0 -bottom-2 left-5 rounded-2xl border border-blue/30 bg-blue/10 sm:top-4 sm:left-7 sm:-bottom-3"
       />
       <div className="relative overflow-hidden rounded-2xl border border-cyan/30 bg-surface-raised shadow-[0_28px_80px_rgb(11_16_27/0.55)]">
         <div
           aria-hidden
           className="pointer-events-none absolute inset-0 bg-[linear-gradient(rgb(77_124_255/0.14)_1px,transparent_1px),linear-gradient(90deg,rgb(77_124_255/0.14)_1px,transparent_1px)] bg-[size:28px_28px] opacity-70 [mask-image:radial-gradient(ellipse_at_center,black,transparent_78%)]"
         />
-        <div className="relative px-3 py-3 sm:px-5 sm:py-4">
+        <div className="relative px-3 py-2.5 sm:px-5 sm:py-4">
+          <ArchitectureStrip label={architectureLabel} items={scene.architecture} />
           <SceneGraph
             scene={scene}
             roles={roles}
             nodesLabel={nodesLabel}
             detailId={detailId}
-            boundaryLabel={boundaryLabel}
+            boundaryLabel={scene.asideLabel ?? boundaryLabel}
             nodeIndex={nodeIndex}
             onSelectNode={onSelectNode}
             play={play}
@@ -216,11 +240,13 @@ function ScenePanel({
           <NodeDetail
             play={play}
             detailId={detailId}
-            decisionLabel={decisionLabel}
+            happensLabel={happensLabel}
+            whyLabel={whyLabel}
+            techLabel={techLabel}
             node={selectedNode}
           />
-          <p className="mt-2 text-sm leading-snug text-muted">{scene.caption}</p>
-          <div className="mt-1 flex flex-wrap gap-x-4 gap-y-1">
+          <p className="mt-2 text-xs leading-snug text-muted sm:text-sm">{scene.caption}</p>
+          <div className="mt-0.5 flex flex-wrap gap-x-4 gap-y-0.5">
             <a
               href={`/${locale}/projects/${scene.slug}`}
               className={`${focusRing} inline-flex min-h-11 items-center text-sm text-cyan`}
@@ -291,6 +317,8 @@ function SceneGraph({
   const measured = useNodeBoxes(frameRef, nodeRefs, scene.slug);
   const boxes = measured.boxes;
   const selected = scene.nodes[nodeIndex] ?? scene.nodes[0];
+  const path = activePath(scene, selected.id);
+  const branchKeys = forkBranchKeys(scene, path);
 
   function onNodesKeyDown(event: KeyboardEvent<HTMLDivElement>) {
     const next = indexFromKey(event.key, nodeIndex, scene.nodes.length);
@@ -315,7 +343,7 @@ function SceneGraph({
       role="group"
       aria-label={nodesLabel}
       onKeyDown={onNodesKeyDown}
-      className={`relative grid gap-x-3 gap-y-8 sm:gap-x-8 sm:gap-y-11 ${frameGrid(scene.frame)}`}
+      className={`relative grid gap-x-3 gap-y-5 sm:gap-x-8 sm:gap-y-10 ${frameGrid(scene.frame)}`}
     >
       {measured.width > 0 && measured.height > 0 ? (
       <svg
@@ -343,13 +371,15 @@ function SceneGraph({
             return null;
           }
 
-          const pertinent = selected.id === link.from || selected.id === link.to;
+          const key = `${link.from}-${link.to}`;
+          const onPath = path.has(link.from) && path.has(link.to);
+          const mode = onPath ? "path" : branchKeys.has(key) ? "branch" : "quiet";
 
           return (
             <FlowLink
-              key={`${link.from}-${link.to}`}
+              key={key}
               drawn={drawn}
-              pertinent={pertinent}
+              mode={mode}
               play={play}
             />
           );
@@ -358,7 +388,8 @@ function SceneGraph({
       ) : null}
       {scene.nodes.map((node, index) => {
         const active = node.id === selected.id;
-        const aside = node.id === "modelo";
+        const onPath = path.has(node.id);
+        const aside = ASIDE_NODES.has(node.id);
         const limit = LIMIT_NODES.has(node.id);
         const core = CORE_NODES.has(node.id);
         const outcome = OUTCOME_NODES.has(node.id);
@@ -369,12 +400,13 @@ function SceneGraph({
             node={node}
             role={roles[node.id] ?? node.label}
             active={active}
+            onPath={onPath}
             aside={aside}
             limit={limit}
             core={core}
             outcome={outcome}
             place={placement(scene.frame, node.id)}
-            showCut={scene.frame === SCENE_FRAME.criteria && node.id === "modelo"}
+            showCut={aside}
             boundaryLabel={boundaryLabel}
             detailId={detailId}
             buttonRef={(element) => {
@@ -388,10 +420,29 @@ function SceneGraph({
   );
 }
 
+function ArchitectureStrip({ label, items }: { label: string; items: readonly string[] }) {
+  return (
+    <div className="mb-2.5 sm:mb-3">
+      <p className="font-mono text-[0.6rem] tracking-[0.16em] text-muted uppercase">{label}</p>
+      <ul className="mt-1.5 flex flex-wrap gap-1.5" aria-label={label}>
+        {items.map((item) => (
+          <li
+            key={item}
+            className="border border-blue/35 bg-background/70 px-2 py-1 font-mono text-[0.65rem] leading-none tracking-wide text-foreground/85"
+          >
+            {item}
+          </li>
+        ))}
+      </ul>
+    </div>
+  );
+}
+
 function StageNode({
   node,
   role,
   active,
+  onPath,
   aside,
   limit,
   core,
@@ -406,6 +457,7 @@ function StageNode({
   node: SceneCopy["nodes"][number];
   role: string;
   active: boolean;
+  onPath: boolean;
   aside: boolean;
   limit: boolean;
   core: boolean;
@@ -420,7 +472,7 @@ function StageNode({
   return (
     <>
       {showCut ? (
-        <p className="z-10 col-span-full py-1 text-center">
+        <p className="z-10 col-span-full py-0.5 text-center sm:py-1">
           <span className="inline-block border border-dashed border-muted/50 bg-surface-raised px-3 py-1 font-mono text-[0.65rem] tracking-[0.16em] text-muted uppercase">
             {boundaryLabel}
           </span>
@@ -433,33 +485,79 @@ function StageNode({
         aria-controls={detailId}
         tabIndex={active ? 0 : -1}
         onClick={onSelect}
-        className={`${focusRing} ${place} relative z-10 flex h-full min-h-[4.5rem] min-w-0 cursor-pointer flex-col items-start justify-start gap-2 border px-3 py-2.5 text-left motion-safe:transition-shadow sm:min-h-24 sm:gap-2.5 sm:py-3 ${nodeSurface(active, aside, limit, core, outcome)}`}
+        className={`${focusRing} ${place} relative z-10 flex h-full min-h-[3.75rem] min-w-0 cursor-pointer flex-col items-start justify-start gap-1.5 border px-2.5 py-2 text-left motion-safe:transition-[box-shadow,opacity] sm:min-h-[5.25rem] sm:gap-2 sm:px-3 sm:py-2.5 ${nodeSurface(active, aside, limit, core, outcome)} ${
+          onPath || active ? "opacity-100" : "opacity-55"
+        }`}
       >
-        <span className="flex min-w-0 items-start gap-3">
+        <span className="flex min-w-0 items-start gap-2.5 sm:gap-3">
           <span
-            className={`grid shrink-0 place-items-center rounded-lg ${outcome || active ? "size-11" : "size-10"} ${iconSurface(active, aside, outcome)}`}
+            className={`grid shrink-0 place-items-center rounded-lg ${outcome || active ? "size-9 sm:size-11" : "size-9 sm:size-10"} ${iconSurface(active, aside, outcome)}`}
           >
             <NodeGlyph id={node.id} />
           </span>
           <span className="min-w-0">
-            <span className="font-mono text-[0.65rem] tracking-[0.16em] text-cyan uppercase">{role}</span>
-            <span className="mt-1 block text-sm leading-snug font-medium text-balance">{node.label}</span>
+            <span className="font-mono text-[0.6rem] tracking-[0.16em] text-cyan uppercase sm:text-[0.65rem]">
+              {role}
+            </span>
+            <span className="mt-0.5 block text-[0.8125rem] leading-snug font-medium text-balance sm:mt-1 sm:text-sm">
+              {node.label}
+            </span>
           </span>
         </span>
-        <NodeMotif id={node.id} />
+        <span className="hidden w-full sm:block">
+          <NodeMotif id={node.id} />
+        </span>
       </button>
     </>
   );
 }
 
 function NodeMotif({ id }: { id: string }) {
-  if (id === "rag" || id === "control") {
+  if (id === "consulta") {
     return (
-      <span aria-hidden className="relative min-h-10 w-full flex-1 sm:min-h-12">
-        <span className="absolute inset-x-5 top-[8%] h-[38%] rounded-md border border-blue/30" />
-        <span className="absolute inset-x-2 top-[28%] h-[38%] rounded-md border border-blue/45 bg-blue/10" />
-        <span className="absolute inset-x-0 top-[48%] flex h-[42%] items-center rounded-md border border-cyan/45 bg-background px-3">
-          <span className="h-px w-2/3 bg-cyan/70" />
+      <span aria-hidden className="mt-1 flex w-full flex-col gap-1 rounded-md border border-cyan/30 bg-background/70 p-2">
+        <span className="h-1 w-2/3 rounded-full bg-cyan/45" />
+        <span className="h-1 w-full rounded-full bg-blue/25" />
+        <span className="h-1 w-1/2 rounded-full bg-blue/20" />
+      </span>
+    );
+  }
+
+  if (id === "rag") {
+    return (
+      <span aria-hidden className="relative mt-1 min-h-11 w-full">
+        <span className="absolute inset-x-3 top-0 h-[42%] rounded-md border border-blue/35 bg-blue/10" />
+        <span className="absolute inset-x-0 top-[38%] flex h-[55%] items-center gap-2 rounded-md border border-cyan/40 bg-background px-2">
+          <span className="h-2 w-2 rounded-sm bg-cyan/70" />
+          <span className="h-px flex-1 bg-cyan/55" />
+          <span className="h-2 w-5 rounded-sm border border-blue/35" />
+        </span>
+      </span>
+    );
+  }
+
+  if (id === "control") {
+    return (
+      <span aria-hidden className="mt-1 flex w-full items-center gap-2">
+        <span className="grid size-6 place-items-center rounded-md border border-cyan/40 text-[0.65rem] text-cyan">
+          ✓
+        </span>
+        <span className="h-px flex-1 bg-blue/30" />
+        <span className="h-2 w-8 rounded-sm border border-blue/30" />
+      </span>
+    );
+  }
+
+  if (id === "ahp") {
+    return (
+      <span aria-hidden className="mt-1 grid w-full grid-cols-2 gap-1.5">
+        <span className="space-y-1 rounded-md border border-cyan/35 bg-cyan/5 p-1.5">
+          <span className="block h-1 w-3/4 rounded-full bg-cyan/55" />
+          <span className="block h-1 w-1/2 rounded-full bg-cyan/30" />
+        </span>
+        <span className="space-y-1 rounded-md border border-blue/35 bg-blue/5 p-1.5">
+          <span className="block h-1 w-2/3 rounded-full bg-blue/50" />
+          <span className="block h-1 w-1/2 rounded-full bg-blue/25" />
         </span>
       </span>
     );
@@ -491,7 +589,7 @@ function NodeMotif({ id }: { id: string }) {
     );
   }
 
-  if (id === "insuficiente" || id === "modelo") {
+  if (id === "insuficiente" || id === "modelo" || id === "web") {
     return (
       <span aria-hidden className="mt-0.5 h-px w-full border-t border-dashed border-muted/50" />
     );
@@ -503,6 +601,26 @@ function NodeMotif({ id }: { id: string }) {
         <span className="h-2 w-6 rounded-sm border border-blue/35 bg-blue/10" />
         <span className="h-2 w-8 rounded-sm border border-blue/25" />
         <span className="h-2 w-5 rounded-sm border border-cyan/30" />
+      </span>
+    );
+  }
+
+  if (id === "catalogo") {
+    return (
+      <span aria-hidden className="mt-1 grid grid-cols-3 gap-1">
+        <span className="h-6 rounded-sm border border-blue/30 bg-blue/10" />
+        <span className="h-6 rounded-sm border border-cyan/35 bg-cyan/10" />
+        <span className="h-6 rounded-sm border border-blue/25" />
+      </span>
+    );
+  }
+
+  if (id === "normalizacion") {
+    return (
+      <span aria-hidden className="mt-1 flex items-center gap-1">
+        <span className="h-2 w-4 rounded-sm border border-blue/30" />
+        <span className="h-px flex-1 bg-cyan/50" />
+        <span className="h-3 w-5 rounded-sm border border-cyan/40 bg-cyan/10" />
       </span>
     );
   }
@@ -580,15 +698,18 @@ function Boundary({
 
 function FlowLink({
   drawn,
-  pertinent,
+  mode,
   play,
 }: {
   drawn: LinkDraw;
-  pertinent: boolean;
+  mode: "path" | "branch" | "quiet";
   play: boolean;
 }) {
-  const moving = play;
-  const color = pertinent ? "#18D4D8" : "#4D7CFF";
+  const moving = play && mode !== "quiet";
+  const color = mode === "quiet" ? "#4D7CFF" : "#18D4D8";
+  const glow = mode === "path" ? 0.34 : mode === "branch" ? 0.16 : 0.06;
+  const stroke = mode === "path" ? 2.5 : mode === "branch" ? 1.75 : 1.15;
+  const opacity = mode === "path" ? 1 : mode === "branch" ? 0.72 : 0.28;
 
   return (
     <g>
@@ -596,26 +717,30 @@ function FlowLink({
         d={drawn.d}
         fill="none"
         stroke={color}
-        strokeOpacity={pertinent ? 0.34 : 0.08}
-        strokeWidth={pertinent ? 8 : 4}
+        strokeOpacity={glow}
+        strokeWidth={mode === "path" ? 8 : mode === "branch" ? 5 : 3}
         strokeLinecap="round"
       />
       <motion.path
         d={drawn.d}
         fill="none"
         stroke={color}
-        strokeOpacity={pertinent ? 1 : 0.32}
-        strokeWidth={pertinent ? 2.5 : 1.25}
+        strokeOpacity={opacity}
+        strokeWidth={stroke}
         strokeLinecap="round"
-        strokeDasharray={moving ? "7 9" : "0"}
+        strokeDasharray={mode === "branch" ? "5 7" : moving ? "7 9" : "0"}
         animate={moving ? { strokeDashoffset: [0, -32] } : { strokeDashoffset: 0 }}
         transition={
           moving
-            ? { duration: pertinent ? FLOW_SECONDS : QUIET_FLOW_SECONDS, repeat: Infinity, ease: "linear" }
+            ? {
+                duration: mode === "path" ? FLOW_SECONDS : QUIET_FLOW_SECONDS,
+                repeat: Infinity,
+                ease: "linear",
+              }
             : { duration: 0 }
         }
       />
-      <polygon points={arrowPoints(drawn.tip, drawn.angle)} fill={color} opacity={pertinent ? 1 : 0.55} />
+      <polygon points={arrowPoints(drawn.tip, drawn.angle)} fill={color} opacity={opacity} />
     </g>
   );
 }
@@ -623,27 +748,40 @@ function FlowLink({
 function NodeDetail({
   play,
   detailId,
-  decisionLabel,
+  happensLabel,
+  whyLabel,
+  techLabel,
   node,
 }: {
   play: boolean;
   detailId: string;
-  decisionLabel: string;
+  happensLabel: string;
+  whyLabel: string;
+  techLabel: string;
   node: SceneCopy["nodes"][number];
 }) {
   const body = (
-    <div className="min-w-0 border-l-2 border-cyan pl-3">
+    <div className="min-w-0 border-l-2 border-cyan pl-2.5 sm:pl-3">
       <p className="sr-only">{node.label}</p>
-      <p className="text-sm leading-snug text-foreground/90">{node.detail}</p>
-      <p className="mt-1.5 text-sm leading-snug text-muted">
-        <span className="font-mono text-[0.65rem] tracking-[0.16em] text-cyan uppercase">{decisionLabel}</span>
-        <span className="mt-0.5 block">{node.decision}</span>
+      <p className="text-sm leading-snug text-foreground/90">
+        <span className="font-mono text-[0.6rem] tracking-[0.14em] text-cyan uppercase">{happensLabel}</span>
+        <span className="mt-0.5 block">{node.happens}</span>
       </p>
+      <p className="mt-1.5 text-sm leading-snug text-muted">
+        <span className="font-mono text-[0.6rem] tracking-[0.14em] text-cyan/90 uppercase">{whyLabel}</span>
+        <span className="mt-0.5 block">{node.why}</span>
+      </p>
+      {node.tech !== undefined ? (
+        <p className="mt-1.5 font-mono text-[0.7rem] leading-snug tracking-wide text-blue">
+          <span className="tracking-[0.14em] text-cyan/80 uppercase">{techLabel}</span>
+          <span className="mt-0.5 block text-foreground/85 normal-case">{node.tech}</span>
+        </p>
+      ) : null}
     </div>
   );
 
   return (
-    <div id={detailId} aria-live="polite" className="relative mt-3">
+    <div id={detailId} aria-live="polite" className="relative mt-2.5 sm:mt-3">
       {play ? (
         <AnimatePresence mode="wait">
           <motion.div
@@ -736,6 +874,10 @@ function glyph(id: string): ReactNode {
     return <path strokeLinecap="round" strokeLinejoin="round" d="M4 8h16M7 12h10M9 16h6" />;
   }
 
+  if (id === "catalogo") {
+    return <path strokeLinecap="round" strokeLinejoin="round" d="M6 5h5v14H6zM13 5h5v6h-5zM13 13h5v6h-5z" />;
+  }
+
   if (id === "exploracion") {
     return (
       <>
@@ -765,6 +907,15 @@ function glyph(id: string): ReactNode {
     return <path strokeLinecap="round" strokeLinejoin="round" d="M6 16V9M12 16V5M18 16v-4" />;
   }
 
+  if (id === "web") {
+    return (
+      <>
+        <circle cx="12" cy="12" r="7" />
+        <path strokeLinecap="round" d="M5 12h14M12 5c2.5 2.2 2.5 11.8 0 14M12 5c-2.5 2.2-2.5 11.8 0 14" />
+      </>
+    );
+  }
+
   return <path strokeLinecap="round" strokeDasharray="3 2" d="M7 6h10v12H7z" />;
 }
 
@@ -786,7 +937,7 @@ function frameGrid(frame: SceneFrame): string {
 
 function placement(frame: SceneFrame, id: string): string {
   if (frame === SCENE_FRAME.pipeline) {
-    if (id === "consulta" || id === "rag" || id === "control") {
+    if (id === "consulta" || id === "rag" || id === "control" || id === "web") {
       return "sm:col-span-2";
     }
 
@@ -794,7 +945,7 @@ function placement(frame: SceneFrame, id: string): string {
   }
 
   if (frame === SCENE_FRAME.catalog) {
-    if (id === "fuentes" || id === "comparacion") {
+    if (id === "fuentes" || id === "exploracion" || id === "comparacion") {
       return "sm:col-span-2";
     }
 
@@ -990,6 +1141,65 @@ function sameBoxes(current: Record<string, Box>, next: Record<string, Box>): boo
       Math.abs(left.h - right.h) < 0.5
     );
   });
+}
+
+/** Nodes from graph roots to the selected stage (inclusive). */
+function activePath(scene: SceneCopy, selectedId: string): Set<string> {
+  const parents = new Map<string, string[]>();
+
+  for (const link of scene.links) {
+    const list = parents.get(link.to) ?? [];
+    list.push(link.from);
+    parents.set(link.to, list);
+  }
+
+  const path = new Set<string>([selectedId]);
+  const stack = [selectedId];
+
+  while (stack.length > 0) {
+    const current = stack.pop();
+
+    if (current === undefined) {
+      break;
+    }
+
+    for (const parent of parents.get(current) ?? []) {
+      if (!path.has(parent)) {
+        path.add(parent);
+        stack.push(parent);
+      }
+    }
+  }
+
+  return path;
+}
+
+/**
+ * Alternative fork edges that stay visible when the selected path takes one branch
+ * (TramitIA disponible | insuficiente). Not animated as a live run.
+ */
+function forkBranchKeys(scene: SceneCopy, path: Set<string>): Set<string> {
+  const keys = new Set<string>();
+
+  for (const link of scene.links) {
+    if (!path.has(link.from)) {
+      continue;
+    }
+
+    if (path.has(link.to)) {
+      continue;
+    }
+
+    const siblings = scene.links.filter((item) => item.from === link.from);
+
+    if (siblings.length < 2) {
+      continue;
+    }
+
+    keys.add(`${link.from}-${link.to}`);
+  }
+
+  return keys;
 }
 
 function indexFromKey(key: string, index: number, count: number): number | null {
