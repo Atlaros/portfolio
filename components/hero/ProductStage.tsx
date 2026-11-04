@@ -105,9 +105,7 @@ export function ProductStage({ locale, projects }: ProductStageProps) {
       <h2 className="mt-1.5 text-lg leading-snug font-semibold text-balance text-foreground sm:text-xl">
         {copy.title}
       </h2>
-      <p className="mt-1.5 max-w-xl text-sm leading-snug text-muted sm:mt-2">{copy.description}</p>
-      <p className="mt-2 text-sm font-medium text-foreground/90">{copy.instruction}</p>
-      <p className="mt-1 max-w-xl text-xs leading-snug text-muted/90">{copy.note}</p>
+      <p className="mt-1.5 max-w-xl text-xs leading-snug text-muted/90 sm:mt-2">{copy.note}</p>
       <div
         role="tablist"
         aria-labelledby={labelId}
@@ -151,10 +149,6 @@ export function ProductStage({ locale, projects }: ProductStageProps) {
         roles={roles}
         nodesLabel={copy.nodesLabel}
         architectureLabel={copy.architectureLabel}
-        stagePanelLabel={copy.stagePanelLabel}
-        happensLabel={copy.happensLabel}
-        whyLabel={copy.whyLabel}
-        techLabel={copy.techLabel}
         boundaryLabel={copy.boundaryLabel}
         nodeIndex={nodeIndex}
         onSelectNode={setNodeIndex}
@@ -180,10 +174,6 @@ function ScenePanel({
   roles,
   nodesLabel,
   architectureLabel,
-  stagePanelLabel,
-  happensLabel,
-  whyLabel,
-  techLabel,
   boundaryLabel,
   nodeIndex,
   onSelectNode,
@@ -204,10 +194,6 @@ function ScenePanel({
   roles: Record<string, string>;
   nodesLabel: string;
   architectureLabel: string;
-  stagePanelLabel: string;
-  happensLabel: string;
-  whyLabel: string;
-  techLabel: string;
   boundaryLabel: string;
   nodeIndex: number;
   onSelectNode: (index: number) => void;
@@ -220,63 +206,47 @@ function ScenePanel({
   selectedNode: SceneCopy["nodes"][number];
   selectedRole: string;
 }) {
-  const detail = (
-    <NodeDetail
-      play={play}
-      detailId={detailId}
-      stagePanelLabel={stagePanelLabel}
-      role={selectedRole}
-      happensLabel={happensLabel}
-      whyLabel={whyLabel}
-      techLabel={techLabel}
-      node={selectedNode}
-    />
-  );
-
   const body = (
-    <div className="relative">
+    <div className="relative overflow-hidden rounded-2xl border border-cyan/30 bg-surface-raised shadow-[0_28px_80px_rgb(11_16_27/0.55)]">
       <div
         aria-hidden
-        className="absolute top-3 right-0 -bottom-2 left-5 rounded-2xl border border-blue/30 bg-blue/10 sm:top-4 sm:left-7 sm:-bottom-3"
+        className="pointer-events-none absolute inset-0 bg-[linear-gradient(rgb(77_124_255/0.14)_1px,transparent_1px),linear-gradient(90deg,rgb(77_124_255/0.14)_1px,transparent_1px)] bg-[size:28px_28px] opacity-70 [mask-image:radial-gradient(ellipse_at_center,black,transparent_78%)]"
       />
-      <div className="relative overflow-hidden rounded-2xl border border-cyan/30 bg-surface-raised shadow-[0_28px_80px_rgb(11_16_27/0.55)]">
-        <div
-          aria-hidden
-          className="pointer-events-none absolute inset-0 bg-[linear-gradient(rgb(77_124_255/0.14)_1px,transparent_1px),linear-gradient(90deg,rgb(77_124_255/0.14)_1px,transparent_1px)] bg-[size:28px_28px] opacity-70 [mask-image:radial-gradient(ellipse_at_center,black,transparent_78%)]"
+      <div className="relative px-3 py-2.5 sm:px-5 sm:py-4">
+        <ArchitectureStrip label={architectureLabel} items={scene.architecture} />
+        <div className="mt-2 min-w-0">
+          <SceneGraph
+            scene={scene}
+            roles={roles}
+            nodesLabel={nodesLabel}
+            detailId={detailId}
+            boundaryLabel={scene.asideLabel ?? boundaryLabel}
+            nodeIndex={nodeIndex}
+            onSelectNode={onSelectNode}
+            play={play}
+          />
+        </div>
+        <NodeDetail
+          play={play}
+          detailId={detailId}
+          role={selectedRole}
+          node={selectedNode}
         />
-        <div className="relative px-3 py-2.5 sm:px-5 sm:py-4">
-          <ArchitectureStrip label={architectureLabel} items={scene.architecture} />
-          <div className="mt-2 grid gap-3 lg:grid-cols-[minmax(0,1.05fr)_minmax(13.5rem,0.95fr)] lg:items-start lg:gap-4">
-            <div className="order-2 min-w-0 lg:order-1">
-              <SceneGraph
-                scene={scene}
-                roles={roles}
-                nodesLabel={nodesLabel}
-                detailId={detailId}
-                boundaryLabel={scene.asideLabel ?? boundaryLabel}
-                nodeIndex={nodeIndex}
-                onSelectNode={onSelectNode}
-                play={play}
-              />
-            </div>
-            <div className="order-1 min-w-0 lg:order-2 lg:sticky lg:top-3">{detail}</div>
-          </div>
-          <p className="mt-2 text-xs leading-snug text-muted sm:text-sm">{scene.caption}</p>
-          <div className="mt-0.5 flex flex-wrap gap-x-4 gap-y-0.5">
-            <a
-              href={`/${locale}/projects/${scene.slug}`}
-              className={`${focusRing} inline-flex min-h-11 items-center text-sm text-cyan`}
-            >
-              {viewCase}
-            </a>
-            <SceneAccess
-              slug={scene.slug}
-              liveUrl={project?.liveUrl}
-              openPilot={openPilot}
-              invitePlatform={invitePlatform}
-              noPublicDemo={noPublicDemo}
-            />
-          </div>
+        <p className="mt-2 text-xs leading-snug text-muted sm:text-sm">{scene.caption}</p>
+        <div className="mt-0.5 flex flex-wrap gap-x-4 gap-y-0.5">
+          <a
+            href={`/${locale}/projects/${scene.slug}`}
+            className={`${focusRing} inline-flex min-h-11 items-center text-sm text-cyan`}
+          >
+            {viewCase}
+          </a>
+          <SceneAccess
+            slug={scene.slug}
+            liveUrl={project?.liveUrl}
+            openPilot={openPilot}
+            invitePlatform={invitePlatform}
+            noPublicDemo={noPublicDemo}
+          />
         </div>
       </div>
     </div>
@@ -438,19 +408,11 @@ function SceneGraph({
 
 function ArchitectureStrip({ label, items }: { label: string; items: readonly string[] }) {
   return (
-    <div className="mb-2.5 sm:mb-3">
-      <p className="font-mono text-[0.6rem] tracking-[0.16em] text-muted uppercase">{label}</p>
-      <ul className="mt-1.5 flex flex-wrap gap-1.5" aria-label={label}>
-        {items.map((item) => (
-          <li
-            key={item}
-            className="border border-blue/35 bg-background/70 px-2 py-1 font-mono text-[0.65rem] leading-none tracking-wide text-foreground/85"
-          >
-            {item}
-          </li>
-        ))}
-      </ul>
-    </div>
+    <p className="mb-2 font-mono text-[0.65rem] leading-snug tracking-wide text-foreground/80 sm:mb-2.5" aria-label={label}>
+      <span className="tracking-[0.16em] text-muted uppercase">{label}</span>
+      <span className="text-muted"> · </span>
+      <span>{items.join(" · ")}</span>
+    </p>
   );
 }
 
@@ -501,20 +463,20 @@ function StageNode({
         aria-controls={detailId}
         tabIndex={active ? 0 : -1}
         onClick={onSelect}
-        className={`${focusRing} ${place} relative z-10 flex h-full min-h-11 min-w-0 cursor-pointer items-start gap-2.5 border px-2.5 py-2 text-left motion-safe:transition-[box-shadow,opacity] sm:min-h-12 sm:gap-3 sm:px-3 sm:py-2.5 ${nodeSurface(active, aside, limit, core, outcome)} ${
+        className={`${focusRing} ${place} relative z-10 flex h-full min-h-11 min-w-0 cursor-pointer items-start gap-2 border px-2 py-1.5 text-left motion-safe:transition-[box-shadow,opacity] sm:gap-2.5 sm:px-2.5 sm:py-2 ${nodeSurface(active, aside, limit, core, outcome)} ${
           onPath || active ? "opacity-100" : "opacity-55"
         }`}
       >
         <span
-          className={`grid shrink-0 place-items-center rounded-lg size-9 ${iconSurface(active, aside, outcome)}`}
+          className={`grid size-7 shrink-0 place-items-center rounded-md ${iconSurface(active, aside, outcome)}`}
         >
           <NodeGlyph id={node.id} />
         </span>
         <span className="min-w-0">
-          <span className="font-mono text-[0.6rem] tracking-[0.16em] text-cyan uppercase sm:text-[0.65rem]">
+          <span className="font-mono text-[0.55rem] tracking-[0.14em] text-cyan uppercase sm:text-[0.6rem]">
             {role}
           </span>
-          <span className="mt-0.5 block text-[0.8125rem] leading-snug font-medium text-balance sm:text-sm">
+          <span className="mt-0.5 block text-[0.75rem] leading-snug font-medium text-balance sm:text-[0.8125rem]">
             {node.label}
           </span>
         </span>
@@ -643,48 +605,31 @@ function FlowLink({
 function NodeDetail({
   play,
   detailId,
-  stagePanelLabel,
   role,
-  happensLabel,
-  whyLabel,
-  techLabel,
   node,
 }: {
   play: boolean;
   detailId: string;
-  stagePanelLabel: string;
   role: string;
-  happensLabel: string;
-  whyLabel: string;
-  techLabel: string;
   node: SceneCopy["nodes"][number];
 }) {
   const body = (
-    <aside className="min-w-0 rounded-xl border border-cyan/35 bg-background/85 p-3 shadow-[inset_0_0_0_1px_rgb(24_212_216/0.08)] sm:p-3.5">
-      <p className="font-mono text-[0.6rem] tracking-[0.16em] text-muted uppercase">{stagePanelLabel}</p>
-      <p className="mt-1 font-mono text-[0.65rem] tracking-[0.14em] text-cyan uppercase">{role}</p>
-      <h3 className="mt-0.5 text-base leading-snug font-semibold text-balance text-foreground">{node.label}</h3>
-      <div className="mt-3 space-y-2.5 border-t border-foreground/10 pt-3">
-        <p className="text-sm leading-snug text-foreground/90">
-          <span className="font-mono text-[0.6rem] tracking-[0.14em] text-cyan uppercase">{happensLabel}</span>
-          <span className="mt-0.5 block">{node.happens}</span>
-        </p>
-        <p className="text-sm leading-snug text-muted">
-          <span className="font-mono text-[0.6rem] tracking-[0.14em] text-cyan/90 uppercase">{whyLabel}</span>
-          <span className="mt-0.5 block">{node.why}</span>
-        </p>
+    <div className="min-w-0 border-t border-foreground/10 pt-2.5">
+      <p className="font-mono text-[0.6rem] tracking-[0.14em] text-cyan uppercase">{role}</p>
+      <p className="mt-0.5 text-sm leading-snug font-semibold text-balance text-foreground">{node.label}</p>
+      <p className="mt-1 text-sm leading-snug text-foreground/90">
+        {node.happens}
         {node.tech !== undefined ? (
-          <p className="font-mono text-[0.7rem] leading-snug tracking-wide text-blue">
-            <span className="tracking-[0.14em] text-cyan/80 uppercase">{techLabel}</span>
-            <span className="mt-0.5 block text-foreground/85 normal-case">{node.tech}</span>
-          </p>
+          <span className="ml-1.5 font-mono text-[0.7rem] tracking-wide text-muted normal-case">
+            · {node.tech}
+          </span>
         ) : null}
-      </div>
-    </aside>
+      </p>
+    </div>
   );
 
   return (
-    <div id={detailId} aria-live="polite" className="relative">
+    <div id={detailId} aria-live="polite" className="relative mt-3">
       {play ? (
         <AnimatePresence mode="wait">
           <motion.div
@@ -737,7 +682,7 @@ function SceneAccess({
 
 function NodeGlyph({ id }: { id: string }) {
   return (
-    <svg viewBox="0 0 24 24" className="size-5" fill="none" stroke="currentColor" strokeWidth="1.6" aria-hidden>
+    <svg viewBox="0 0 24 24" className="size-4" fill="none" stroke="currentColor" strokeWidth="1.6" aria-hidden>
       {glyph(id)}
     </svg>
   );

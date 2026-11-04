@@ -169,8 +169,12 @@ describe("home composition", () => {
     expect(stage).toContain("activePath");
     expect(stage).toContain("forkBranchKeys");
     expect(stage).toContain("ArchitectureStrip");
-    expect(stage).toContain("stagePanelLabel");
-    expect(stage).toContain("lg:grid-cols-[minmax(0,1.05fr)_minmax(13.5rem,0.95fr)]");
+    expect(stage).toContain("NodeDetail");
+    expect(stage).toContain('aria-live="polite"');
+    expect(stage).toContain("items.join");
+    expect(stage).not.toContain("lg:grid-cols-[minmax(0,1.05fr)_minmax(13.5rem,0.95fr)]");
+    expect(stage).not.toContain("lg:sticky lg:top-3");
+    expect(stage).not.toContain("border-blue/30 bg-blue/10");
     expect(stage).not.toContain("NodeMotif");
     expect(stage).not.toContain("max-w-[34rem]");
     expect(stage).not.toContain("h-80");
