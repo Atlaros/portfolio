@@ -28,6 +28,8 @@ describe("productStageCopy", () => {
     expect(productStageCopy.es.title).toBe("De la información al resultado.");
     expect(productStageCopy.es.instruction.toLowerCase()).toContain("explora");
     expect(productStageCopy.es.note.toLowerCase()).toContain("no procesan datos en vivo");
+    expect(productStageCopy.es.stagePanelLabel.toLowerCase()).toContain("etapa");
+    expect(productStageCopy.en.stagePanelLabel.toLowerCase()).toContain("selected");
     expect(productStageCopy.en.eyebrow.toLowerCase()).toContain("explore");
     expect(productStageCopy.pt.eyebrow.toLowerCase()).toContain("explore");
   });
@@ -167,6 +169,9 @@ describe("home composition", () => {
     expect(stage).toContain("activePath");
     expect(stage).toContain("forkBranchKeys");
     expect(stage).toContain("ArchitectureStrip");
+    expect(stage).toContain("stagePanelLabel");
+    expect(stage).toContain("lg:grid-cols-[minmax(0,1.05fr)_minmax(13.5rem,0.95fr)]");
+    expect(stage).not.toContain("NodeMotif");
     expect(stage).not.toContain("max-w-[34rem]");
     expect(stage).not.toContain("h-80");
     expect(hero).not.toContain("HeroFlow");
