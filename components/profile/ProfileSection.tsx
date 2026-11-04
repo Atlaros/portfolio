@@ -24,6 +24,7 @@ export function ProfileSection({ locale }: ProfileSectionProps) {
         </h2>
         <p className="mt-4 max-w-2xl text-base leading-relaxed text-foreground/90">{copy.aboutLead}</p>
         <p className="mt-3 max-w-2xl text-sm leading-relaxed text-muted">{copy.aboutBody}</p>
+        <p className="mt-3 max-w-2xl text-sm leading-relaxed text-muted">{copy.aboutClose}</p>
       </section>
 
       <section
@@ -49,7 +50,14 @@ export function ProfileSection({ locale }: ProfileSectionProps) {
               className="grid gap-2 border-b border-foreground/10 py-5 sm:grid-cols-[minmax(11rem,0.34fr)_minmax(0,0.66fr)] sm:gap-8"
             >
               <h3 className="text-base font-semibold tracking-tight text-foreground">{item.title}</h3>
-              <p className="max-w-prose text-sm leading-relaxed text-muted">{item.body}</p>
+              <div className="max-w-prose">
+                <p className="text-sm font-medium leading-snug text-foreground/90">{item.role}</p>
+                {item.body.map((paragraph) => (
+                  <p key={paragraph} className="mt-2 text-sm leading-relaxed text-muted">
+                    {paragraph}
+                  </p>
+                ))}
+              </div>
             </li>
           ))}
         </ul>
@@ -70,39 +78,47 @@ export function ProfileSection({ locale }: ProfileSectionProps) {
         <p className="mt-3 max-w-2xl text-sm leading-relaxed text-muted">{copy.contactLead}</p>
         <p className="mt-2 text-sm text-muted">{PROFILE_LINKS.location[locale]}</p>
 
-        <p className="mt-6 flex flex-wrap gap-x-5 gap-y-3 text-sm">
-          <a
-            href={PROFILE_LINKS.emailHref}
-            className={`${focusRing} inline-flex border border-cyan/40 bg-cyan/10 px-3 py-2 font-medium text-cyan`}
-          >
-            {copy.contactCta}
-          </a>
-          <a
-            href={PROFILE_LINKS.github}
-            target="_blank"
-            rel="noopener noreferrer"
-            className={`text-cyan ${focusRing}`}
-          >
-            {copy.githubLabel}
-          </a>
-          <a
-            href={PROFILE_LINKS.linkedin}
-            target="_blank"
-            rel="noopener noreferrer"
-            className={`text-cyan ${focusRing}`}
-          >
-            {copy.linkedinLabel}
-          </a>
-          <a
-            href={PROFILE_LINKS.cv}
-            target="_blank"
-            rel="noopener noreferrer"
-            className={`text-cyan ${focusRing}`}
-          >
-            {copy.cvLabel}
-          </a>
-        </p>
-        <p className="mt-3 font-mono text-xs tracking-wide text-muted">
+        <ul className="mt-6 flex list-none flex-wrap gap-3 p-0">
+          <li>
+            <a
+              href={PROFILE_LINKS.emailHref}
+              className={`${focusRing} inline-flex min-h-11 items-center bg-cyan px-4 text-sm font-medium text-background`}
+            >
+              {copy.contactCta}
+            </a>
+          </li>
+          <li>
+            <a
+              href={PROFILE_LINKS.github}
+              target="_blank"
+              rel="noopener noreferrer"
+              className={`${focusRing} inline-flex min-h-11 items-center border border-foreground/15 px-4 text-sm text-foreground`}
+            >
+              {copy.githubLabel}
+            </a>
+          </li>
+          <li>
+            <a
+              href={PROFILE_LINKS.linkedin}
+              target="_blank"
+              rel="noopener noreferrer"
+              className={`${focusRing} inline-flex min-h-11 items-center border border-foreground/15 px-4 text-sm text-foreground`}
+            >
+              {copy.linkedinLabel}
+            </a>
+          </li>
+          <li>
+            <a
+              href={PROFILE_LINKS.cv}
+              target="_blank"
+              rel="noopener noreferrer"
+              className={`${focusRing} inline-flex min-h-11 items-center border border-foreground/15 px-4 text-sm text-foreground`}
+            >
+              {copy.cvLabel}
+            </a>
+          </li>
+        </ul>
+        <p className="mt-4 font-mono text-xs tracking-wide text-muted">
           <span className="sr-only">{copy.emailLabel}: </span>
           {PROFILE_LINKS.email}
         </p>

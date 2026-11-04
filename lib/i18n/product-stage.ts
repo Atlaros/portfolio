@@ -33,6 +33,8 @@ interface SceneCopy {
   architecture: readonly string[];
   /** Cut label before aside nodes (web fallback / LLM outside score). */
   asideLabel?: string;
+  /** Published engineering judgment for this system — not a tool list. */
+  decision: string;
   nodes: readonly StageNode[];
   links: readonly StageLink[];
   caption: string;
@@ -49,6 +51,7 @@ interface ProductStageCopy {
   stagePanelLabel: string;
   happensLabel: string;
   whyLabel: string;
+  decisionLabel: string;
   techLabel: string;
   boundaryLabel: string;
   scenes: readonly [SceneCopy, SceneCopy, SceneCopy];
@@ -67,6 +70,7 @@ const productStageCopy = {
     stagePanelLabel: "Etapa seleccionada",
     happensLabel: "Qué sucede",
     whyLabel: "Por qué existe",
+    decisionLabel: "Decisión de ingeniería",
     techLabel: "En esta etapa",
     boundaryLabel: "Fuera del puntaje",
     scenes: [
@@ -77,6 +81,8 @@ const productStageCopy = {
         lines: ["Consulta", "RAG", "Control", "Salidas"],
         architecture: ["Next.js", "FastAPI · LangGraph", "PostgreSQL · pgvector"],
         asideLabel: "Orientación auxiliar",
+        decision:
+          "Anclar cada orientación a una ficha publicada. Si el trámite no está en el catálogo, decirlo: no inventar requisitos.",
         nodes: [
           {
             id: "consulta",
@@ -132,6 +138,8 @@ const productStageCopy = {
         frame: SCENE_FRAME.catalog,
         lines: ["Fuentes", "Normalización", "Catálogo", "Exploración", "Comparación"],
         architecture: ["Next.js", "PostgreSQL", "Supabase Auth", "Docker · EC2 · Caddy"],
+        decision:
+          "Normalizar fuentes distintas y separar lo confirmado de lo no verificado antes de buscar o comparar. No es un agente.",
         nodes: [
           {
             id: "fuentes",
@@ -181,6 +189,8 @@ const productStageCopy = {
         lines: ["Evidencia", "Criterios", "AHP/TOPSIS", "Priorización"],
         architecture: ["Criterios y pesos", "AHP/TOPSIS", "Revisión por evidencia", "Acceso por invitación"],
         asideLabel: "Fuera del puntaje",
+        decision:
+          "Puntuar encaje del socio y oportunidad del programa por separado, con AHP/TOPSIS y evidencia. El modelo no escribe el ranking.",
         nodes: [
           {
             id: "evidencia",
@@ -235,6 +245,7 @@ const productStageCopy = {
     stagePanelLabel: "Selected stage",
     happensLabel: "What happens",
     whyLabel: "Why it exists",
+    decisionLabel: "Engineering decision",
     techLabel: "At this stage",
     boundaryLabel: "Outside the score",
     scenes: [
@@ -245,6 +256,8 @@ const productStageCopy = {
         lines: ["Question", "RAG", "Control", "Outcomes"],
         architecture: ["Next.js", "FastAPI · LangGraph", "PostgreSQL · pgvector"],
         asideLabel: "Auxiliary orientation",
+        decision:
+          "Anchor every answer to a published record. If the procedure is not in the catalog, say so instead of inventing requirements.",
         nodes: [
           {
             id: "consulta",
@@ -300,6 +313,8 @@ const productStageCopy = {
         frame: SCENE_FRAME.catalog,
         lines: ["Sources", "Normalization", "Catalog", "Explore", "Compare"],
         architecture: ["Next.js", "PostgreSQL", "Supabase Auth", "Docker · EC2 · Caddy"],
+        decision:
+          "Normalize scattered sources and separate confirmed fields from unverified ones before search or compare. This is not an agent.",
         nodes: [
           {
             id: "fuentes",
@@ -349,6 +364,8 @@ const productStageCopy = {
         lines: ["Evidence", "Criteria", "AHP/TOPSIS", "Prioritization"],
         architecture: ["Criteria and weights", "AHP/TOPSIS", "Evidence review", "Invite-only access"],
         asideLabel: "Outside the score",
+        decision:
+          "Score partner fit and program opportunity separately with AHP/TOPSIS and traceable evidence. The model does not write the ranking.",
         nodes: [
           {
             id: "evidencia",
@@ -403,6 +420,7 @@ const productStageCopy = {
     stagePanelLabel: "Etapa selecionada",
     happensLabel: "O que acontece",
     whyLabel: "Por que existe",
+    decisionLabel: "Decisão de engenharia",
     techLabel: "Nesta etapa",
     boundaryLabel: "Fora da pontuação",
     scenes: [
@@ -413,6 +431,8 @@ const productStageCopy = {
         lines: ["Consulta", "RAG", "Controle", "Saídas"],
         architecture: ["Next.js", "FastAPI · LangGraph", "PostgreSQL · pgvector"],
         asideLabel: "Orientação auxiliar",
+        decision:
+          "Ancorar cada orientação a uma ficha publicada. Se o trâmite não está no catálogo, dizer isso em vez de inventar requisitos.",
         nodes: [
           {
             id: "consulta",
@@ -468,6 +488,8 @@ const productStageCopy = {
         frame: SCENE_FRAME.catalog,
         lines: ["Fontes", "Normalização", "Catálogo", "Exploração", "Comparação"],
         architecture: ["Next.js", "PostgreSQL", "Supabase Auth", "Docker · EC2 · Caddy"],
+        decision:
+          "Normalizar fontes distintas e separar o confirmado do não verificado antes de buscar ou comparar. Não é um agente.",
         nodes: [
           {
             id: "fuentes",
@@ -517,6 +539,8 @@ const productStageCopy = {
         lines: ["Evidência", "Critérios", "AHP/TOPSIS", "Priorização"],
         architecture: ["Critérios e pesos", "AHP/TOPSIS", "Revisão por evidência", "Acesso por convite"],
         asideLabel: "Fora da pontuação",
+        decision:
+          "Pontuar encaixe do parceiro e oportunidade do programa em separado, com AHP/TOPSIS e evidência. O modelo não escreve o ranking.",
         nodes: [
           {
             id: "evidencia",

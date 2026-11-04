@@ -24,8 +24,6 @@ import type { Locale } from "@/lib/i18n/locales";
 
 const PANEL_SECONDS = 0.24;
 const PANEL_RISE_PX = 8;
-const FLOW_SECONDS = 2.6;
-const QUIET_FLOW_SECONDS = 5.2;
 
 const focusRing =
   "rounded-sm outline-none focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-cyan";
@@ -105,7 +103,9 @@ export function ProductStage({ locale, projects }: ProductStageProps) {
       <h2 className="mt-1.5 text-lg leading-snug font-semibold text-balance text-foreground sm:text-xl">
         {copy.title}
       </h2>
-      <p className="mt-1.5 max-w-xl text-xs leading-snug text-muted/90 sm:mt-2">{copy.note}</p>
+      <p className="mt-1.5 max-w-xl text-sm leading-snug text-muted sm:mt-2">{copy.description}</p>
+      <p className="mt-2 text-sm font-medium text-foreground/90">{copy.instruction}</p>
+      <p className="mt-1 max-w-xl text-xs leading-snug text-muted/90">{copy.note}</p>
       <div
         role="tablist"
         aria-labelledby={labelId}
@@ -149,6 +149,11 @@ export function ProductStage({ locale, projects }: ProductStageProps) {
         roles={roles}
         nodesLabel={copy.nodesLabel}
         architectureLabel={copy.architectureLabel}
+        stagePanelLabel={copy.stagePanelLabel}
+        happensLabel={copy.happensLabel}
+        whyLabel={copy.whyLabel}
+        decisionLabel={copy.decisionLabel}
+        techLabel={copy.techLabel}
         boundaryLabel={copy.boundaryLabel}
         nodeIndex={nodeIndex}
         onSelectNode={setNodeIndex}
@@ -174,6 +179,11 @@ function ScenePanel({
   roles,
   nodesLabel,
   architectureLabel,
+  stagePanelLabel,
+  happensLabel,
+  whyLabel,
+  decisionLabel,
+  techLabel,
   boundaryLabel,
   nodeIndex,
   onSelectNode,
@@ -194,6 +204,11 @@ function ScenePanel({
   roles: Record<string, string>;
   nodesLabel: string;
   architectureLabel: string;
+  stagePanelLabel: string;
+  happensLabel: string;
+  whyLabel: string;
+  decisionLabel: string;
+  techLabel: string;
   boundaryLabel: string;
   nodeIndex: number;
   onSelectNode: (index: number) => void;
@@ -206,47 +221,69 @@ function ScenePanel({
   selectedNode: SceneCopy["nodes"][number];
   selectedRole: string;
 }) {
+  const detail = (
+    <NodeDetail
+      play={play}
+      detailId={detailId}
+      stagePanelLabel={stagePanelLabel}
+      role={selectedRole}
+      happensLabel={happensLabel}
+      whyLabel={whyLabel}
+      techLabel={techLabel}
+      node={selectedNode}
+    />
+  );
+
   const body = (
-    <div className="relative overflow-hidden rounded-2xl border border-cyan/30 bg-surface-raised shadow-[0_28px_80px_rgb(11_16_27/0.55)]">
+    <div className="relative">
       <div
         aria-hidden
-        className="pointer-events-none absolute inset-0 bg-[linear-gradient(rgb(77_124_255/0.14)_1px,transparent_1px),linear-gradient(90deg,rgb(77_124_255/0.14)_1px,transparent_1px)] bg-[size:28px_28px] opacity-70 [mask-image:radial-gradient(ellipse_at_center,black,transparent_78%)]"
+        className="absolute top-3 right-0 -bottom-2 left-5 rounded-2xl border border-blue/30 bg-blue/10 sm:top-4 sm:left-7 sm:-bottom-3"
       />
-      <div className="relative px-3 py-2.5 sm:px-5 sm:py-4">
-        <ArchitectureStrip label={architectureLabel} items={scene.architecture} />
-        <div className="mt-2 min-w-0">
-          <SceneGraph
-            scene={scene}
-            roles={roles}
-            nodesLabel={nodesLabel}
-            detailId={detailId}
-            boundaryLabel={scene.asideLabel ?? boundaryLabel}
-            nodeIndex={nodeIndex}
-            onSelectNode={onSelectNode}
-            play={play}
-          />
-        </div>
-        <NodeDetail
-          play={play}
-          detailId={detailId}
-          role={selectedRole}
-          node={selectedNode}
+      <div className="relative overflow-hidden rounded-2xl border border-cyan/30 bg-surface-raised shadow-[0_28px_80px_rgb(11_16_27/0.55)]">
+        <div
+          aria-hidden
+          className="pointer-events-none absolute inset-0 bg-[linear-gradient(rgb(77_124_255/0.08)_1px,transparent_1px),linear-gradient(90deg,rgb(77_124_255/0.08)_1px,transparent_1px)] bg-[size:28px_28px] opacity-35 [mask-image:radial-gradient(ellipse_at_center,black,transparent_78%)]"
         />
-        <p className="mt-2 text-xs leading-snug text-muted sm:text-sm">{scene.caption}</p>
-        <div className="mt-0.5 flex flex-wrap gap-x-4 gap-y-0.5">
-          <a
-            href={`/${locale}/projects/${scene.slug}`}
-            className={`${focusRing} inline-flex min-h-11 items-center text-sm text-cyan`}
-          >
-            {viewCase}
-          </a>
-          <SceneAccess
-            slug={scene.slug}
-            liveUrl={project?.liveUrl}
-            openPilot={openPilot}
-            invitePlatform={invitePlatform}
-            noPublicDemo={noPublicDemo}
-          />
+        <div className="relative px-3 py-2.5 sm:px-5 sm:py-4">
+          <ArchitectureStrip label={architectureLabel} items={scene.architecture} />
+          <p className="mt-2 max-w-3xl text-sm leading-snug text-foreground/90">
+            <span className="font-mono text-[0.6rem] tracking-[0.14em] text-cyan uppercase">
+              {decisionLabel}
+            </span>
+            <span className="mt-1 block">{scene.decision}</span>
+          </p>
+          <div className="mt-3 grid gap-3 lg:grid-cols-[minmax(0,1.05fr)_minmax(13.5rem,0.95fr)] lg:items-start lg:gap-4">
+            <div className="order-2 min-w-0 lg:order-1">
+              <SceneGraph
+                scene={scene}
+                roles={roles}
+                nodesLabel={nodesLabel}
+                detailId={detailId}
+                boundaryLabel={scene.asideLabel ?? boundaryLabel}
+                nodeIndex={nodeIndex}
+                onSelectNode={onSelectNode}
+                play={play}
+              />
+            </div>
+            <div className="order-1 min-w-0 lg:order-2 lg:sticky lg:top-3">{detail}</div>
+          </div>
+          <p className="mt-2 text-xs leading-snug text-muted sm:text-sm">{scene.caption}</p>
+          <div className="mt-0.5 flex flex-wrap gap-x-4 gap-y-0.5">
+            <a
+              href={`/${locale}/projects/${scene.slug}`}
+              className={`${focusRing} inline-flex min-h-11 items-center text-sm text-cyan`}
+            >
+              {viewCase}
+            </a>
+            <SceneAccess
+              slug={scene.slug}
+              liveUrl={project?.liveUrl}
+              openPilot={openPilot}
+              invitePlatform={invitePlatform}
+              noPublicDemo={noPublicDemo}
+            />
+          </div>
         </div>
       </div>
     </div>
@@ -337,7 +374,6 @@ function SceneGraph({
         viewBox={`0 0 ${measured.width} ${measured.height}`}
         aria-hidden
       >
-        <FrameMotif frame={scene.frame} />
         <Boundary
           scene={scene}
           boxes={boxes}
@@ -351,21 +387,26 @@ function SceneGraph({
             return null;
           }
 
+          const key = `${link.from}-${link.to}`;
+          const onPath = path.has(link.from) && path.has(link.to);
+          const isBranch = branchKeys.has(key);
+
+          // Idle edges add visual noise — only show the selected path and fork alternatives.
+          if (!onPath && !isBranch) {
+            return null;
+          }
+
           const drawn = linkDraw(from, to);
 
           if (drawn === null) {
             return null;
           }
 
-          const key = `${link.from}-${link.to}`;
-          const onPath = path.has(link.from) && path.has(link.to);
-          const mode = onPath ? "path" : branchKeys.has(key) ? "branch" : "quiet";
-
           return (
             <FlowLink
               key={key}
               drawn={drawn}
-              mode={mode}
+              mode={onPath ? "path" : "branch"}
               play={play}
             />
           );
@@ -408,11 +449,19 @@ function SceneGraph({
 
 function ArchitectureStrip({ label, items }: { label: string; items: readonly string[] }) {
   return (
-    <p className="mb-2 font-mono text-[0.65rem] leading-snug tracking-wide text-foreground/80 sm:mb-2.5" aria-label={label}>
-      <span className="tracking-[0.16em] text-muted uppercase">{label}</span>
-      <span className="text-muted"> · </span>
-      <span>{items.join(" · ")}</span>
-    </p>
+    <div className="mb-2.5 sm:mb-3">
+      <p className="font-mono text-[0.6rem] tracking-[0.16em] text-muted uppercase">{label}</p>
+      <ul className="mt-1.5 flex flex-wrap gap-1.5" aria-label={label}>
+        {items.map((item) => (
+          <li
+            key={item}
+            className="border border-blue/35 bg-background/70 px-2 py-1 font-mono text-[0.65rem] leading-none tracking-wide text-foreground/85"
+          >
+            {item}
+          </li>
+        ))}
+      </ul>
+    </div>
   );
 }
 
@@ -463,52 +512,24 @@ function StageNode({
         aria-controls={detailId}
         tabIndex={active ? 0 : -1}
         onClick={onSelect}
-        className={`${focusRing} ${place} relative z-10 flex h-full min-h-11 min-w-0 cursor-pointer items-start gap-2 border px-2 py-1.5 text-left motion-safe:transition-[box-shadow,opacity] sm:gap-2.5 sm:px-2.5 sm:py-2 ${nodeSurface(active, aside, limit, core, outcome)} ${
-          onPath || active ? "opacity-100" : "opacity-55"
+        className={`${focusRing} ${place} relative z-10 flex h-full min-h-11 min-w-0 cursor-pointer items-start gap-2.5 border px-2.5 py-2 text-left motion-safe:transition-[box-shadow,opacity] sm:min-h-12 sm:gap-3 sm:px-3 sm:py-2.5 ${nodeSurface(active, aside, limit, core, outcome)} ${
+          onPath || active ? "opacity-100" : "opacity-72"
         }`}
       >
         <span
-          className={`grid size-7 shrink-0 place-items-center rounded-md ${iconSurface(active, aside, outcome)}`}
+          className={`grid shrink-0 place-items-center rounded-lg size-9 ${iconSurface(active, aside, outcome)}`}
         >
           <NodeGlyph id={node.id} />
         </span>
         <span className="min-w-0">
-          <span className="font-mono text-[0.55rem] tracking-[0.14em] text-cyan uppercase sm:text-[0.6rem]">
+          <span className="font-mono text-[0.6rem] tracking-[0.16em] text-cyan uppercase sm:text-[0.65rem]">
             {role}
           </span>
-          <span className="mt-0.5 block text-[0.75rem] leading-snug font-medium text-balance sm:text-[0.8125rem]">
+          <span className="mt-0.5 block text-[0.8125rem] leading-snug font-medium text-balance sm:text-sm">
             {node.label}
           </span>
         </span>
       </button>
-    </>
-  );
-}
-
-function FrameMotif({ frame }: { frame: SceneFrame }) {
-  if (frame === SCENE_FRAME.pipeline) {
-    return (
-      <>
-        <rect x="10%" y="4%" width="80%" height="50%" rx="16" fill="rgb(77 124 255 / 0.05)" stroke="#4D7CFF" strokeOpacity="0.2" />
-        <rect x="8%" y="62%" width="40%" height="28%" rx="12" fill="none" stroke="#18D4D8" strokeOpacity="0.22" />
-        <rect x="52%" y="62%" width="40%" height="28%" rx="12" fill="none" stroke="#A7B3C7" strokeOpacity="0.35" strokeDasharray="5 6" />
-      </>
-    );
-  }
-
-  if (frame === SCENE_FRAME.catalog) {
-    return (
-      <>
-        <ellipse cx="50%" cy="22%" rx="22%" ry="12%" fill="none" stroke="#18D4D8" strokeOpacity="0.18" />
-        <rect x="12%" y="38%" width="76%" height="48%" rx="14" fill="rgb(24 212 216 / 0.04)" stroke="#4D7CFF" strokeOpacity="0.16" />
-      </>
-    );
-  }
-
-  return (
-    <>
-      <rect x="6%" y="4%" width="88%" height="62%" rx="14" fill="rgb(77 124 255 / 0.05)" stroke="#4D7CFF" strokeOpacity="0.18" />
-      <rect x="10%" y="72%" width="80%" height="20%" rx="10" fill="none" stroke="#A7B3C7" strokeOpacity="0.35" strokeDasharray="5 6" />
     </>
   );
 }
@@ -559,14 +580,12 @@ function FlowLink({
   play,
 }: {
   drawn: LinkDraw;
-  mode: "path" | "branch" | "quiet";
+  mode: "path" | "branch";
   play: boolean;
 }) {
-  const moving = play && mode !== "quiet";
-  const color = mode === "quiet" ? "#4D7CFF" : "#18D4D8";
-  const glow = mode === "path" ? 0.34 : mode === "branch" ? 0.16 : 0.06;
-  const stroke = mode === "path" ? 2.5 : mode === "branch" ? 1.75 : 1.15;
-  const opacity = mode === "path" ? 1 : mode === "branch" ? 0.72 : 0.28;
+  const color = mode === "path" ? "#18D4D8" : "#7B8AA3";
+  const stroke = mode === "path" ? 1.75 : 1.35;
+  const opacity = mode === "path" ? 0.92 : 0.55;
 
   return (
     <g>
@@ -574,28 +593,14 @@ function FlowLink({
         d={drawn.d}
         fill="none"
         stroke={color}
-        strokeOpacity={glow}
-        strokeWidth={mode === "path" ? 8 : mode === "branch" ? 5 : 3}
-        strokeLinecap="round"
-      />
-      <motion.path
-        d={drawn.d}
-        fill="none"
-        stroke={color}
         strokeOpacity={opacity}
         strokeWidth={stroke}
         strokeLinecap="round"
-        strokeDasharray={mode === "branch" ? "5 7" : moving ? "7 9" : "0"}
-        animate={moving ? { strokeDashoffset: [0, -32] } : { strokeDashoffset: 0 }}
-        transition={
-          moving
-            ? {
-                duration: mode === "path" ? FLOW_SECONDS : QUIET_FLOW_SECONDS,
-                repeat: Infinity,
-                ease: "linear",
-              }
-            : { duration: 0 }
-        }
+        strokeLinejoin="round"
+        strokeDasharray={mode === "branch" ? "4 6" : "0"}
+        initial={play ? { pathLength: 0.85, opacity: 0.35 } : false}
+        animate={{ pathLength: 1, opacity }}
+        transition={{ duration: play ? 0.28 : 0, ease: "easeOut" }}
       />
       <polygon points={arrowPoints(drawn.tip, drawn.angle)} fill={color} opacity={opacity} />
     </g>
@@ -605,31 +610,48 @@ function FlowLink({
 function NodeDetail({
   play,
   detailId,
+  stagePanelLabel,
   role,
+  happensLabel,
+  whyLabel,
+  techLabel,
   node,
 }: {
   play: boolean;
   detailId: string;
+  stagePanelLabel: string;
   role: string;
+  happensLabel: string;
+  whyLabel: string;
+  techLabel: string;
   node: SceneCopy["nodes"][number];
 }) {
   const body = (
-    <div className="min-w-0 border-t border-foreground/10 pt-2.5">
-      <p className="font-mono text-[0.6rem] tracking-[0.14em] text-cyan uppercase">{role}</p>
-      <p className="mt-0.5 text-sm leading-snug font-semibold text-balance text-foreground">{node.label}</p>
-      <p className="mt-1 text-sm leading-snug text-foreground/90">
-        {node.happens}
+    <aside className="min-w-0 rounded-xl border border-cyan/35 bg-background/85 p-3 shadow-[inset_0_0_0_1px_rgb(24_212_216/0.08)] sm:p-3.5">
+      <p className="font-mono text-[0.6rem] tracking-[0.16em] text-muted uppercase">{stagePanelLabel}</p>
+      <p className="mt-1 font-mono text-[0.65rem] tracking-[0.14em] text-cyan uppercase">{role}</p>
+      <h3 className="mt-0.5 text-base leading-snug font-semibold text-balance text-foreground">{node.label}</h3>
+      <div className="mt-3 space-y-2.5 border-t border-foreground/10 pt-3">
+        <p className="text-sm leading-snug text-foreground/90">
+          <span className="font-mono text-[0.6rem] tracking-[0.14em] text-cyan uppercase">{happensLabel}</span>
+          <span className="mt-0.5 block">{node.happens}</span>
+        </p>
+        <p className="text-sm leading-snug text-muted">
+          <span className="font-mono text-[0.6rem] tracking-[0.14em] text-cyan/90 uppercase">{whyLabel}</span>
+          <span className="mt-0.5 block">{node.why}</span>
+        </p>
         {node.tech !== undefined ? (
-          <span className="ml-1.5 font-mono text-[0.7rem] tracking-wide text-muted normal-case">
-            · {node.tech}
-          </span>
+          <p className="font-mono text-[0.7rem] leading-snug tracking-wide text-blue">
+            <span className="tracking-[0.14em] text-cyan/80 uppercase">{techLabel}</span>
+            <span className="mt-0.5 block text-foreground/85 normal-case">{node.tech}</span>
+          </p>
         ) : null}
-      </p>
-    </div>
+      </div>
+    </aside>
   );
 
   return (
-    <div id={detailId} aria-live="polite" className="relative mt-3">
+    <div id={detailId} aria-live="polite" className="relative">
       {play ? (
         <AnimatePresence mode="wait">
           <motion.div
@@ -682,7 +704,7 @@ function SceneAccess({
 
 function NodeGlyph({ id }: { id: string }) {
   return (
-    <svg viewBox="0 0 24 24" className="size-4" fill="none" stroke="currentColor" strokeWidth="1.6" aria-hidden>
+    <svg viewBox="0 0 24 24" className="size-5" fill="none" stroke="currentColor" strokeWidth="1.6" aria-hidden>
       {glyph(id)}
     </svg>
   );
@@ -866,8 +888,10 @@ interface LinkDraw {
 }
 
 function linkDraw(from: Box, to: Box): LinkDraw | null {
-  const start = edgePoint(from, center(to));
-  const end = edgePoint(to, center(from));
+  const startCenter = center(from);
+  const endCenter = center(to);
+  const start = edgePoint(from, endCenter);
+  const end = edgePoint(to, startCenter);
   const dx = end.x - start.x;
   const dy = end.y - start.y;
   const length = Math.hypot(dx, dy);
@@ -876,15 +900,26 @@ function linkDraw(from: Box, to: Box): LinkDraw | null {
     return null;
   }
 
-  const ux = dx / length;
-  const uy = dy / length;
+  // Orthogonal elbow keeps the graph readable vs diagonal crossings.
+  const mostlyVertical = Math.abs(dy) >= Math.abs(dx);
+  const mid = mostlyVertical
+    ? { x: start.x, y: start.y + dy / 2 }
+    : { x: start.x + dx / 2, y: start.y };
+  const beforeTip = mostlyVertical
+    ? { x: end.x, y: mid.y }
+    : { x: mid.x, y: end.y };
   const tip = { x: end.x, y: end.y };
-  const lineEnd = { x: end.x - ux * 10, y: end.y - uy * 10 };
+  const angle = Math.atan2(tip.y - beforeTip.y, tip.x - beforeTip.x);
+  const inset = 8;
+  const lineEnd = {
+    x: tip.x - Math.cos(angle) * inset,
+    y: tip.y - Math.sin(angle) * inset,
+  };
 
   return {
-    d: `M ${start.x.toFixed(1)} ${start.y.toFixed(1)} L ${lineEnd.x.toFixed(1)} ${lineEnd.y.toFixed(1)}`,
+    d: `M ${start.x.toFixed(1)} ${start.y.toFixed(1)} L ${mid.x.toFixed(1)} ${mid.y.toFixed(1)} L ${beforeTip.x.toFixed(1)} ${beforeTip.y.toFixed(1)} L ${lineEnd.x.toFixed(1)} ${lineEnd.y.toFixed(1)}`,
     tip,
-    angle: Math.atan2(dy, dx),
+    angle,
   };
 }
 

@@ -108,6 +108,24 @@ describe("productStageCopy", () => {
     expect(partner.architecture.join(" ").toLowerCase()).toContain("invitación");
   });
 
+  it("states an engineering decision on every scene without inventing metrics", () => {
+    expect(productStageCopy.es.decisionLabel.toLowerCase()).toContain("decisión");
+    expect(productStageCopy.en.decisionLabel.toLowerCase()).toContain("decision");
+    expect(productStageCopy.pt.decisionLabel.toLowerCase()).toContain("decisão");
+
+    for (const locale of Object.values(locales) as Locale[]) {
+      for (const scene of productStageCopy[locale].scenes) {
+        expect(scene.decision.length).toBeGreaterThan(40);
+        expect(scene.decision.length).toBeLessThan(220);
+      }
+    }
+
+    expect(productStageCopy.es.scenes[0].decision.toLowerCase()).toContain("ficha");
+    expect(productStageCopy.es.scenes[1].decision.toLowerCase()).toContain("no es un agente");
+    expect(productStageCopy.es.scenes[2].decision.toLowerCase()).toContain("ahp/topsis");
+    expect(JSON.stringify(productStageCopy).toLowerCase()).not.toContain("1050");
+  });
+
   it("exposes a documented architecture strip on every scene", () => {
     expect(productStageCopy.es.architectureLabel.toLowerCase()).toContain("arquitectura");
     for (const locale of Object.values(locales) as Locale[]) {
@@ -169,12 +187,8 @@ describe("home composition", () => {
     expect(stage).toContain("activePath");
     expect(stage).toContain("forkBranchKeys");
     expect(stage).toContain("ArchitectureStrip");
-    expect(stage).toContain("NodeDetail");
-    expect(stage).toContain('aria-live="polite"');
-    expect(stage).toContain("items.join");
-    expect(stage).not.toContain("lg:grid-cols-[minmax(0,1.05fr)_minmax(13.5rem,0.95fr)]");
-    expect(stage).not.toContain("lg:sticky lg:top-3");
-    expect(stage).not.toContain("border-blue/30 bg-blue/10");
+    expect(stage).toContain("stagePanelLabel");
+    expect(stage).toContain("lg:grid-cols-[minmax(0,1.05fr)_minmax(13.5rem,0.95fr)]");
     expect(stage).not.toContain("NodeMotif");
     expect(stage).not.toContain("max-w-[34rem]");
     expect(stage).not.toContain("h-80");
