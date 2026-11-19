@@ -12,6 +12,7 @@ describe("profile and contact", () => {
       "https://www.linkedin.com/in/diego-silvestre-borges-salces",
     );
     expect(PROFILE_LINKS.cv).toBe("/diego-borges-portfolio.pdf");
+    expect(PROFILE_LINKS.resume).toBe("/cv/diego-borges-full-stack.pdf");
   });
 
   it("names about, experience, and contact in es, en, and pt", () => {
@@ -50,10 +51,14 @@ describe("profile and contact", () => {
     expect(section).toContain('id="experience"');
     expect(section).toContain('id="contact"');
     expect(section).not.toContain("<form");
-    expect(section).toContain("PROFILE_LINKS");
+    expect(section).toContain("PROFILE_LINKS.cv");
+    expect(section).toContain("PROFILE_LINKS.resume");
     expect(profileCopy.es.cvLabel).toBe("PDF del portafolio");
     expect(profileCopy.en.cvLabel).toBe("Portfolio PDF");
     expect(profileCopy.pt.cvLabel).toBe("PDF do portfólio");
+    expect(profileCopy.es.resumeLabel).toBe("CV");
+    expect(profileCopy.en.resumeLabel).toBe("CV");
+    expect(profileCopy.pt.resumeLabel).toBe("CV");
   });
 
   it("keeps profile and experience MDX as draft placeholders", () => {

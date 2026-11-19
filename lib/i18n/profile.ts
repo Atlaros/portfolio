@@ -25,6 +25,7 @@ interface ProfileCopy {
   githubLabel: string;
   linkedinLabel: string;
   cvLabel: string;
+  resumeLabel: string;
   navAbout: string;
   navContact: string;
 }
@@ -82,6 +83,7 @@ const profileCopy = {
     githubLabel: "GitHub",
     linkedinLabel: "LinkedIn",
     cvLabel: "PDF del portafolio",
+    resumeLabel: "CV",
     navAbout: "Sobre mí",
     navContact: "Contacto",
   },
@@ -137,6 +139,7 @@ const profileCopy = {
     githubLabel: "GitHub",
     linkedinLabel: "LinkedIn",
     cvLabel: "Portfolio PDF",
+    resumeLabel: "CV",
     navAbout: "About",
     navContact: "Contact",
   },
@@ -192,6 +195,7 @@ const profileCopy = {
     githubLabel: "GitHub",
     linkedinLabel: "LinkedIn",
     cvLabel: "PDF do portfólio",
+    resumeLabel: "CV",
     navAbout: "Sobre mim",
     navContact: "Contato",
   },

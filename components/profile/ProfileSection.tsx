@@ -117,6 +117,16 @@ export function ProfileSection({ locale }: ProfileSectionProps) {
               {copy.cvLabel}
             </a>
           </li>
+          <li>
+            <a
+              href={PROFILE_LINKS.resume}
+              target="_blank"
+              rel="noopener noreferrer"
+              className={`${focusRing} inline-flex min-h-11 items-center border border-foreground/15 px-4 text-sm text-foreground`}
+            >
+              {copy.resumeLabel}
+            </a>
+          </li>
         </ul>
         <p className="mt-4 font-mono text-xs tracking-wide text-muted">
           <span className="sr-only">{copy.emailLabel}: </span>

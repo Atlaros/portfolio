@@ -8,6 +8,7 @@ const PROFILE_LINKS = {
   github: "https://github.com/Atlaros",
   linkedin: "https://www.linkedin.com/in/diego-silvestre-borges-salces",
   cv: "/diego-borges-portfolio.pdf",
+  resume: "/cv/diego-borges-full-stack.pdf",
   location: {
     es: "Santa Cruz de la Sierra, Bolivia",
     en: "Santa Cruz de la Sierra, Bolivia",
